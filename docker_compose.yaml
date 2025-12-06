@@ -6,3 +6,11 @@ services:
       - 5432:5432
     volumes:
     - ./database/data/:/var/lib/postgresql/data
+
+  bugboard26:
+    image: bugboard26
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
