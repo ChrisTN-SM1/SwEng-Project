@@ -5,13 +5,13 @@ import it.ludina.bugboard26.data.issue.enums.StatoEnum;
 
 public class IssueBug extends Issue {
 
-    public IssueBug(int _idIssue, String _titolo, String _descrizione, PrioritaEnum _priorita, StatoEnum _stato,
-            String _urlImmagine) {
-        super(_idIssue, _titolo, _descrizione, _priorita, _stato, _urlImmagine);
+    public IssueBug(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato,
+            String urlImmagine) {
+        super(idIssue, titolo, descrizione, priorita, stato, urlImmagine);
     }
 
     @Override
-    public String get_issue_type() {
+    public String getIssueType() {
         return "bug";
     }
 

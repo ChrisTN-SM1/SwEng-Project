@@ -9,14 +9,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public abstract class Issue {
 
-    @Getter private int _idIssue;
-    @Getter private String _titolo;
-    @Getter private String _descrizione;
-    @Getter private PrioritaEnum _priorita;
-    @Getter private StatoEnum _stato;
+    @Getter private int idIssue;
+    @Getter private String titolo;
+    @Getter private String descrizione;
+    @Getter private PrioritaEnum priorita;
+    @Getter private StatoEnum stato;
 
-    @Getter private String _urlImmagine;
+    @Getter private String urlImmagine;
 
 
-    public abstract String get_issue_type();
+    public abstract String getIssueType();
 }  

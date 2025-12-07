@@ -4,6 +4,6 @@ import lombok.Getter;
 
 public abstract class Utente {
 
-    @Getter private String _email;
-    @Getter private String _password;
+    @Getter private String email;
+    @Getter private String password;
 }

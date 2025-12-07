@@ -1,0 +1,51 @@
+package it.ludina.bugboard26.dao.postgresql;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import it.ludina.bugboard26.connections.PostgresConnection;
+import it.ludina.bugboard26.dao.IssueDAO;
+import it.ludina.bugboard26.data.IssueFactory;
+import it.ludina.bugboard26.data.issue.Issue;
+import it.ludina.bugboard26.data.issue.enums.PrioritaEnum;
+import it.ludina.bugboard26.data.issue.enums.StatoEnum;
+
+public class PGIssueDAO implements IssueDAO{
+
+    private Connection conn = null;
+    private ResultSet rs = null;
+    private PreparedStatement ps;
+
+    @Override
+    public List<Issue> getAllIssues() throws SQLException {
+        conn = PostgresConnection.getInstance().getConnection();
+
+        List<Issue> result = new ArrayList<>();
+
+        ps = conn.prepareStatement("SELECT visualizza_lista_issue()");
+
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+
+            int id = rs.getInt(1);
+            String titolo = rs.getString(2);
+            String tipologia = rs.getString(3);
+            PrioritaEnum priorita = PrioritaEnum.valueOf(rs.getString(4));
+            StatoEnum stato = StatoEnum.valueOf(rs.getString(5));
+
+            Issue i = IssueFactory.create(id, titolo, tipologia, priorita, stato);
+
+            result.add(i);
+        }
+        rs.close();
+        conn.close();
+        return result;
+    }
+
+
+}
