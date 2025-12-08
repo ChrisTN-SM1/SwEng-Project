@@ -1,6 +1,7 @@
 bugboard26/.env
 bugboard26/target/*
 .vscode/*
+.idea/*
 bugboard26/.vscode/*
 bugboard26/.idea/*
 bugboard26-frontend/.vscode/*
