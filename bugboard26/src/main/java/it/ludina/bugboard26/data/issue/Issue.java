@@ -17,6 +17,5 @@ public abstract class Issue {
 
     @Getter private String urlImmagine;
 
-
     public abstract String getIssueType();
 }  
