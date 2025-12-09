@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="it.ludina.bugboard26fe.bugboard26frontend.DettaglioIssue"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="453.0" prefWidth="913.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26fe.bugboard26frontend.DettaglioIssueController">
+   <children>
+      <Label layoutX="106.0" layoutY="34.0" text="ISSUE NUMERO">
+         <font>
+            <Font size="42.0" />
+         </font></Label>
+      <Label layoutX="106.0" layoutY="127.0" text="Titolo:" />
+      <Label layoutX="107.0" layoutY="165.0" text="Descrizione:" />
+      <Label layoutX="107.0" layoutY="214.0" text="Tipologia:" />
+      <Label layoutX="106.0" layoutY="260.0" text="Priorità:" />
+      <Label layoutX="106.0" layoutY="309.0" text="Stato:" />
+      <Label layoutX="107.0" layoutY="402.0" text="Immagine:" />
+      <Label layoutX="414.0" layoutY="34.0" prefHeight="17.0" prefWidth="166.0" text="Label">
+         <font>
+            <Font size="42.0" />
+         </font></Label>
+      <Label layoutX="258.0" layoutY="127.0" text="Label" />
+      <Label layoutX="258.0" layoutY="165.0" text="Label" />
+      <Label layoutX="258.0" layoutY="214.0" text="Label" />
+      <Label layoutX="258.0" layoutY="260.0" text="Label" />
+      <Button layoutX="253.0" layoutY="398.0" mnemonicParsing="false" text="Visualizza immagine" />
+      <Label layoutX="258.0" layoutY="309.0" text="Label" />
+      <Label layoutX="106.0" layoutY="358.0" text="Responsabili:" />
+      <Label layoutX="258.0" layoutY="358.0" text="Label" />
+   </children>
 </AnchorPane>
