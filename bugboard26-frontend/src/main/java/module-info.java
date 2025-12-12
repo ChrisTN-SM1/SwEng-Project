@@ -8,6 +8,7 @@ module it.ludina.bugboard26fe.bugboard26frontend {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
+    requires java.desktop;
 
     opens it.ludina.bugboard26fe.bugboard26frontend to javafx.fxml;
     exports it.ludina.bugboard26fe.bugboard26frontend;
