@@ -113,7 +113,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                it.ludina.bugboard26fe.bugboard26frontend/it.ludina.bugboard26fe.bugboard26frontend.HelloApplication
+                                it.ludina.bugboard26fe.bugboard26frontend/it.ludina.bugboard26fe.bugboard26frontend.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
