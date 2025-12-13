@@ -2,7 +2,7 @@
 
 CREATE TYPE UserType AS ENUM ('semplice', 'admin');
 CREATE TYPE IssueType AS ENUM ('question', 'bug', 'documentation', 'feature');
-CREATE TYPE IssuePriority AS ENUM ('bassa', 'media', 'alta', 'vitale', 'non specificata');
+CREATE TYPE IssuePriority AS ENUM ('bassa', 'media', 'alta', 'vitale');
 CREATE TYPE IssueStatus AS ENUM ('todo', 'assegnato', 'completato', 'archiviato');
 
 --Tables
