@@ -28,38 +28,54 @@ public class IssueController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("bug")
-    public Response addBug(IssueBug bug){
-        // TODO Implement
-        return null;
+    public Response addBug(IssueBug bug) {
+        try {
+            dao.add(bug);
+            return Response.status(Response.Status.CREATED).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("documentation")
-    public Response addDocumentation(IssueDocumentation documentation){
-        // TODO Implement
-        return null;
+    public Response addDocumentation(IssueDocumentation documentation) {
+        try {
+            dao.add(documentation);
+            return Response.status(Response.Status.CREATED).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("feature")
-    public Response addFeature(IssueFeature feature){
-        // TODO Implement
-        return null;
+    public Response addFeature(IssueFeature feature) {
+        try {
+            dao.add(feature);
+            return Response.status(Response.Status.CREATED).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("question")
-    public Response addQuestion(IssueQuestion question){
-        // TODO Implement
-        return null;
+    public Response addQuestion(IssueQuestion question) {
+        try {
+            dao.add(question);
+            return Response.status(Response.Status.CREATED).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Issue> getIssues(){
+    public List<Issue> getIssues() {
 
         try {
             return dao.getAllIssues();

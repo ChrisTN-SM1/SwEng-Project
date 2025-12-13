@@ -7,4 +7,6 @@ import it.ludina.bugboard26.data.issue.Issue;
 
 public interface IssueDAO {
     List<Issue> getAllIssues() throws SQLException;
+
+    void add(Issue issue) throws SQLException;
 }

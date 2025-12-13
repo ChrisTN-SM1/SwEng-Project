@@ -4,13 +4,9 @@ services:
     container_name: "database"
     ports:
       - 5432:5432
-    volumes:
-    - ./database/data/:/var/lib/postgresql/data
 
-  bugboard26:
-    image: bugboard26
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+  backend:
+    build: ./bugboard26/
+    container_name: "backend"
     ports:
       - 8080:8080

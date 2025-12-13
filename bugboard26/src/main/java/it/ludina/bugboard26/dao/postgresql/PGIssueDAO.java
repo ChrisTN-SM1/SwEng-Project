@@ -47,5 +47,19 @@ public class PGIssueDAO implements IssueDAO{
         return result;
     }
 
+    @Override
+    public void add(Issue issue) throws SQLException {
+        conn = PostgresConnection.getInstance().getConnection();
+
+        ps = conn.prepareStatement("CALL crea_issue(?,?,?,?,?)");
+
+        ps.setString(1, issue.getTitolo());
+        ps.setString(2, issue.getDescrizione());
+        ps.setString(3, issue.getIssueType());
+        ps.setString(4, issue.getPriorita().toString());
+
+        ps.execute();
+    }
+
 
 }
