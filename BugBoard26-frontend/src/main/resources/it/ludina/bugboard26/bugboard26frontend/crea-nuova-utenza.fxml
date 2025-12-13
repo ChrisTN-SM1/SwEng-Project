@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="318.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.CreaNuovaUtenzaController">
+    <Button layoutX="188.0" layoutY="317.0" mnemonicParsing="false" onAction="#conferma" prefHeight="50.0" prefWidth="69.0" style="-fx-background-color: lightgreen" text="Conferma" />
+    <Button layoutX="56.0" layoutY="317.0" mnemonicParsing="false" onAction="#annulla" prefHeight="50.0" prefWidth="69.0" style="-fx-background-color: lightcoral" text="Annulla" />
+   <Label layoutX="81.0" layoutY="14.0" text="Inserisci i dati&#10;per la nuova utenza" textAlignment="CENTER">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+    <Label layoutX="141.0" layoutY="84.0" text="Email*:" />
+    <TextField layoutX="22.0" layoutY="113.0" prefHeight="25.0" prefWidth="274.0" />
+   <Label layoutX="131.0" layoutY="154.0" text="Password*:" />
+   <TextField layoutX="22.0" layoutY="188.0" prefHeight="25.0" prefWidth="274.0" />
+   <Label layoutX="131.0" layoutY="226.0" text="Tipologia*:" />
+   <ChoiceBox layoutX="22.0" layoutY="250.0" prefHeight="25.0" prefWidth="274.0" />
+   <Label layoutX="10.0" layoutY="292.0" text="* I campi contrassegnati da un asterisco sono obbligatori" />
+</AnchorPane>

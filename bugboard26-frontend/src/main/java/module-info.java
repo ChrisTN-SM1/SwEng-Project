@@ -11,8 +11,10 @@ module it.ludina.bugboard26fe.bugboard26frontend {
     requires java.desktop;
     requires java.net.http;
 
-    opens it.ludina.bugboard26fe.bugboard26frontend to javafx.fxml;
-    exports it.ludina.bugboard26fe.bugboard26frontend;
-    exports it.ludina.bugboard26fe.bugboard26frontend.DettaglioIssue;
-    opens it.ludina.bugboard26fe.bugboard26frontend.DettaglioIssue to javafx.fxml;
+    opens it.ludina.bugboard26.bugboard26frontend to javafx.fxml;
+    exports it.ludina.bugboard26.bugboard26frontend;
+    exports it.ludina.bugboard26.bugboard26frontend.DettaglioIssue;
+    opens it.ludina.bugboard26.bugboard26frontend.DettaglioIssue to javafx.fxml;
+    exports it.ludina.bugboard26.bugboard26frontend.SegnalaIssue;
+    opens it.ludina.bugboard26.bugboard26frontend.SegnalaIssue to javafx.fxml;
 }
