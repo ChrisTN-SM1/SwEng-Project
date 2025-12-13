@@ -1,4 +1,6 @@
-package it.ludina.bugboard26fe.bugboard26frontend;
+package it.ludina.bugboard26fe.bugboard26frontend.DettaglioIssue;
+
+import it.ludina.bugboard26fe.bugboard26frontend.WindowManager;
 
 public class DettaglioIssueController {
 

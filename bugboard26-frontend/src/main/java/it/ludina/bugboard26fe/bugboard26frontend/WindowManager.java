@@ -10,9 +10,9 @@ import java.io.IOException;
 
 public class WindowManager {
 
-    static void apriFinestra(String nomeLayout){
+    public static void apriFinestra(String nomeLayout){
         FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource(nomeLayout));
-        Scene scene = null;
+        Scene scene;
         try {
             scene = new Scene(fxmlLoader.load());
         } catch (IOException e) {
@@ -24,7 +24,7 @@ public class WindowManager {
         stage.show();
     }
 
-    static void chiudiFinestra(ActionEvent event){
+    public static void chiudiFinestra(ActionEvent event){
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
