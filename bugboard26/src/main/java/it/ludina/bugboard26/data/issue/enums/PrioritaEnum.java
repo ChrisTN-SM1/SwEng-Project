@@ -4,5 +4,6 @@ public enum PrioritaEnum {
     BASSA,
     MEDIA,
     ALTA,
-    VITALE
+    VITALE,
+    NON_SPECIFICATA
 }
