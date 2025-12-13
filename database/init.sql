@@ -18,7 +18,7 @@ CREATE TABLE issue (
     titolo VARCHAR(50),
     descrizione VARCHAR(2000),
     tipologia IssueType,
-    priorita IssuePriority,
+    priorita IssuePriority DEFAULT 'non specificata',
     stato IssueStatus DEFAULT 'todo',
     immagine VARCHAR(200)
 );
