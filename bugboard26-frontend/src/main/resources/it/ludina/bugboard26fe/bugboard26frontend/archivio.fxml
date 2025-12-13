@@ -4,13 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="498.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26fe.bugboard26frontend.ArchivioController">
-   <children>
-      <ListView fx:id="listaArchivio" editable="true" layoutX="20.0" layoutY="65.0" prefHeight="408.0" prefWidth="890.0" />
-      <ScrollBar layoutX="896.0" layoutY="65.0" orientation="VERTICAL" prefHeight="408.0" prefWidth="14.0" />
-      <Label layoutX="20.0" text="ARCHIVIO">
-         <font>
-            <Font size="42.0" />
-         </font></Label>
-   </children>
+<AnchorPane prefHeight="498.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.ludina.bugboard26fe.bugboard26frontend.ArchivioController">
+   <ListView fx:id="listaArchivio" editable="true" layoutX="20.0" layoutY="65.0" prefHeight="408.0" prefWidth="890.0"/>
+   <ScrollBar layoutX="896.0" layoutY="65.0" orientation="VERTICAL" prefHeight="408.0" prefWidth="14.0"/>
+   <Label layoutX="20.0" text="ARCHIVIO">
+      <font>
+         <Font size="42.0"/>
+      </font>
+   </Label>
 </AnchorPane>

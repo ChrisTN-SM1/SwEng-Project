@@ -24,9 +24,21 @@
       <Label layoutX="258.0" layoutY="165.0" text="Label" />
       <Label layoutX="258.0" layoutY="300.0" text="Label" />
       <Label layoutX="258.0" layoutY="346.0" text="Label" />
-      <Button layoutX="253.0" layoutY="484.0" mnemonicParsing="false" text="Visualizza immagine" />
+      <Button layoutX="253.0" layoutY="484.0" mnemonicParsing="false" onAction="#mostraVisualizzaImmagine" style="-fx-background-color: lightskyblue" text="Visualizza immagine" />
       <Label layoutX="258.0" layoutY="395.0" text="Label" />
       <Label layoutX="106.0" layoutY="444.0" text="Responsabili:" />
       <Label layoutX="258.0" layoutY="444.0" text="Label" />
+      <Button layoutX="765.0" layoutY="104.0" mnemonicParsing="false" onAction="#mostraImpostaStatoCompletato" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Imposta stato&#10;completato" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+      <Button layoutX="765.0" layoutY="346.0" mnemonicParsing="false" onAction="#mostraArchiviaBug" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Archivia bug">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+      <Button layoutX="765.0" layoutY="226.0" mnemonicParsing="false" onAction="#mostraAssegnaIssue" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Assegna issue">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
    </children>
 </AnchorPane>

@@ -1,20 +1,12 @@
 package it.ludina.bugboard26fe.bugboard26frontend;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
 public class HomepageController {
 
-    public void mostraSchermataSegnalaIssue(ActionEvent event) {
+    public void mostraSegnalaIssue() {
         WindowManager.apriFinestra("segnala-issue.fxml");
     }
 
-    public void mostraSchermataCreaNuovaUtenza(){
+    public void mostraCreaNuovaUtenza(){
         WindowManager.apriFinestra("crea-nuova-utenza.fxml");
     }
 
