@@ -2,7 +2,7 @@
 
 CREATE TYPE UserType AS ENUM ('semplice', 'admin');
 CREATE TYPE IssueType AS ENUM ('question', 'bug', 'documentation', 'feature');
-CREATE TYPE IssuePriority AS ENUM ('bassa', 'media', 'alta', 'vitale');
+CREATE TYPE IssuePriority AS ENUM ('bassa', 'media', 'alta', 'vitale', 'non specificata');
 CREATE TYPE IssueStatus AS ENUM ('todo', 'assegnato', 'completato', 'archiviato');
 
 --Tables
@@ -31,11 +31,11 @@ CREATE TABLE assegnazione (
 
 --Procedures
 
-CREATE OR REPLACE PROCEDURE crea_utente(newMail VARCHAR(50), newPass VARCHAR(50), "type" UserType)
+CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(50), newPass VARCHAR(50), "type" UserType)
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO utente(email, "password", tipologia) VALUES (newMail, newPass, "type");
+    INSERT INTO utente(email, "password", tipologia) VALUES (newEmail, newPass, "type");
 END; $$;
 
 CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(50), newDesc VARCHAR(2000), "type" IssueType, priority IssuePriority, image VARCHAR(200))
@@ -54,11 +54,20 @@ BEGIN
     WHERE  "id" = idIssue;
 END; $$;
 
-CREATE OR REPLACE PROCEDURE assegna_issue(newIdIssue INT, newMailUtente VARCHAR(50))
+CREATE OR REPLACE PROCEDURE imposta_bug_archiviato(idIssue INT)
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO assegnazione(idIssue, emailUtente) VALUES (newIdIssue, newMailUtente);
+    UPDATE issue
+    SET stato = 'archiviato'
+    WHERE  "id" = idIssue;
+END; $$;
+
+CREATE OR REPLACE PROCEDURE assegna_issue(newIdIssue INT, newEmailUtente VARCHAR(50))
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO assegnazione(idIssue, emailUtente) VALUES (newIdIssue, newEmailUtente);
 END; $$;
 
 CREATE OR REPLACE PROCEDURE elimina_issue(issueID INT)
@@ -69,24 +78,24 @@ BEGIN
     where "id" = issueID;
 END; $$;
 
-CREATE OR REPLACE PROCEDURE elimina_utente(userMail VARCHAR(50))
+CREATE OR REPLACE PROCEDURE elimina_utente(userEmail VARCHAR(50))
 LANGUAGE plpgsql
 AS $$
 BEGIN
     DELETE FROM utente
-    WHERE email = userMail;
+    WHERE email = userEmail;
 END; $$;
 
 --Functions
 
-CREATE OR REPLACE FUNCTION login_utente(userMail VARCHAR(50), userPassword VARCHAR(50))
+CREATE OR REPLACE FUNCTION login_utente(userEmail VARCHAR(50), userPassword VARCHAR(50))
 RETURNS integer AS $outcome$
 DECLARE
     outcome integer;
 BEGIN
-    IF userMail NOT IN (SELECT email FROM utente) THEN
+    IF userEmail NOT IN (SELECT email FROM utente) THEN
         outcome = 1;
-    ELSIF userPassword <> (SELECT "password" FROM utente WHERE email = userMail) THEN
+    ELSIF userPassword <> (SELECT "password" FROM utente WHERE email = userEmail) THEN
         outcome = 2;
     ELSE
         outcome = 0;
@@ -146,7 +155,7 @@ BEGIN
 END; $$;
 
 CREATE or REPLACE TRIGGER controlla_stato_issue
-AFTER IDENTITY ON assegnazione
+AFTER INSERT ON assegnazione
 FOR EACH ROW
 EXECUTE FUNCTION controlla_stato_issue_function();
 

@@ -15,6 +15,7 @@ import it.ludina.bugboard26.data.issue.IssueQuestion;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -24,6 +25,19 @@ import jakarta.ws.rs.core.Response;
 public class IssueController {
 
     IssueDAO dao = new PGIssueDAO();
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Issue> getIssues() {
+
+        try {
+            return dao.getAllIssues();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -73,16 +87,40 @@ public class IssueController {
         }
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Issue> getIssues() {
-
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("archive")
+    public Response setArchived(int id) {
         try {
-            return dao.getAllIssues();
+            dao.setArchived(id);
+            return Response.status(Response.Status.OK).build();
         } catch (SQLException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-
     }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("complete")
+    public Response setCompleted(int id) {
+        try {
+            dao.setCompleted(id);
+            return Response.status(Response.Status.OK).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("assign")
+    public Response assignIssue(int id, String[] users) {
+        try {
+            dao.assignIssue(id, users);
+            return Response.status(Response.Status.OK).build();
+        } catch (SQLException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
 }

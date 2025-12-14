@@ -9,4 +9,10 @@ public interface IssueDAO {
     List<Issue> getAllIssues() throws SQLException;
 
     void add(Issue issue) throws SQLException;
+
+    void setArchived(int id) throws SQLException;
+
+    void setCompleted(int id) throws SQLException;
+
+    void assignIssue(int id, String[] users) throws SQLException;
 }

@@ -59,6 +59,50 @@ public class PGIssueDAO implements IssueDAO{
         ps.setString(4, issue.getPriorita().toString());
 
         ps.execute();
+
+        conn.close();
+    }
+
+    @Override
+    public void setArchived(int id) throws SQLException {
+        conn = PostgresConnection.getInstance().getConnection();
+
+        ps = conn.prepareStatement("CALL imposta_bug_archiviato(?)");
+        ps.setInt(1, id);
+
+        ps.execute();
+
+        conn.close();
+    }
+
+    @Override
+    public void setCompleted(int id) throws SQLException {
+        conn = PostgresConnection.getInstance().getConnection();
+
+        ps = conn.prepareStatement("CALL imposta_issue_completata(?)");
+        ps.setInt(1, id);
+
+        ps.execute();
+
+        conn.close();
+    }
+
+    @Override
+    public void assignIssue(int id, String[] users) throws SQLException {
+        conn = PostgresConnection.getInstance().getConnection();
+
+        ps = conn.prepareStatement("CALL assegna_issue(?, ?)");
+        ps.setInt(1, id);
+
+        for (String user : users) {
+            ps.setString(2, user);
+            ps.addBatch();
+            
+        }
+        
+        ps.executeBatch();
+
+        conn.close();
     }
 
 
