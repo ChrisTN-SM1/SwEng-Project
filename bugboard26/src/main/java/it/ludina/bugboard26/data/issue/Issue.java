@@ -8,12 +8,21 @@ import lombok.Getter;
 
 public abstract class Issue {
 
+    //Costruttore per il caricamento delle issue dal database
     protected Issue(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato, String urlImmagine){
         this.idIssue = idIssue;
         this.titolo = titolo;
         this.descrizione = descrizione;
         this.priorita = priorita;
         this.stato = stato;
+        this.urlImmagine = urlImmagine;
+    }
+
+    //Costruttore per la creazione di nuove issue
+    protected Issue(String titolo, String descrizione, String priorita, String urlImmagine){
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+        this.priorita = PrioritaEnum.valueOf(priorita);
         this.urlImmagine = urlImmagine;
     }
 

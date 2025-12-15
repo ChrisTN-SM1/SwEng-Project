@@ -7,10 +7,10 @@
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.HomepageController">
     <TabPane layoutX="204.0" layoutY="26.0" prefHeight="681.0" prefWidth="1057.0" tabClosingPolicy="UNAVAILABLE">
         <Tab text="Lista issue">
-            <fx:include source="lista-issue.fxml"/>
+            <fx:include source="lista-issue.fxml" />
         </Tab>
         <Tab text="Archivio bug">
-            <fx:include source="archivio.fxml"/>
+            <fx:include source="archivio.fxml" />
         </Tab>
     </TabPane>
     <Button layoutX="14.0" layoutY="128.0" mnemonicParsing="false" onAction="#mostraSegnalaIssue" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Segnala Issue">

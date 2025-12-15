@@ -8,7 +8,7 @@ import java.net.http.HttpResponse;
 
 public class HTTPRequestManager {
     private static final HttpClient client = HttpClient.newHttpClient();
-    private static final String BASE_URI = "https://api.bugboard.com/";
+    private static final String BASE_URI = "http://localhost:8080/";
     private static String token;
 
     public static void impostaStatoCompletato(int idIssue){
@@ -39,7 +39,21 @@ public class HTTPRequestManager {
         }
     }
 
-    public static void segnalaIssue(String titolo, String descrizione, String tipologia, String priority, String urlImmagine){
-        //fai cose
+    public static void segnalaIssue(String titolo, String descrizione, String tipologia, String priorita, String urlImmagine){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URI + "issue/" + tipologia.toLowerCase() +"/"))
+                .header("Content-Type", "application/json")
+                //.header("Authorization", "Bearer " + token)
+                .POST(HttpRequest.BodyPublishers.ofString
+                        ("{\"titolo\":\"" + titolo + "\"," +
+                                "\"descrizione\":\"" + descrizione + "\"," +
+                                "\"priorita\":\"" + priorita + "\", " +
+                                "\"urlImmagine\":\"" + urlImmagine + "\"}"))
+                .build();
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

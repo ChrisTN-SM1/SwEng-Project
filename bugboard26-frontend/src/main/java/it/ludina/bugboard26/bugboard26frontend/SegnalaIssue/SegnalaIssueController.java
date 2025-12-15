@@ -44,9 +44,9 @@ public class SegnalaIssueController implements Initializable {
         String descrizione = descrizioneTextArea.getText();
         String tipologia = tipologiaChoiceBox.getValue();
         String priority = priorityChoiceBox.getValue();
-        String immagine = null; //deve esser file immagine
+        String immagine = ""; //deve esser file immagine
 
-        if(titolo.isBlank() || descrizione.isBlank() || tipologia.isBlank()) {
+        if(titolo.isBlank() || descrizione.isBlank() || tipologia == null) {
             WindowManager.apriFinestra("segnala-issue/campo-obbligatorio-vuoto.fxml");
         } else {
             HTTPRequestManager.segnalaIssue(titolo, descrizione, tipologia, priority, immagine);

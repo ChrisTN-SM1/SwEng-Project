@@ -18,6 +18,7 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -33,7 +34,6 @@ public class IssueController {
         try {
             return dao.getAllIssues();
         } catch (SQLException e) {
-            e.printStackTrace();
             return Collections.emptyList();
         }
 
@@ -114,7 +114,7 @@ public class IssueController {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("assign")
-    public Response assignIssue(int id, String[] users) {
+    public Response assignIssue(@QueryParam("id") int id, @QueryParam("users") String[] users) {
         try {
             dao.assignIssue(id, users);
             return Response.status(Response.Status.OK).build();
