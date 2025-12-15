@@ -11,6 +11,8 @@ public class HTTPRequestManager {
     private static final String BASE_URI = "http://localhost:8080/";
     private static String token;
 
+    private HTTPRequestManager(){}
+
     public static void impostaStatoCompletato(int idIssue){
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issue/complete"))
@@ -41,17 +43,18 @@ public class HTTPRequestManager {
 
     public static void segnalaIssue(String titolo, String descrizione, String tipologia, String priorita, String urlImmagine){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issue/" + tipologia.toLowerCase() +"/"))
+                .uri(URI.create(BASE_URI + "issues/" + tipologia.toLowerCase() + "/"))
                 .header("Content-Type", "application/json")
                 //.header("Authorization", "Bearer " + token)
-                .POST(HttpRequest.BodyPublishers.ofString
-                        ("{\"titolo\":\"" + titolo + "\"," +
-                                "\"descrizione\":\"" + descrizione + "\"," +
-                                "\"priorita\":\"" + priorita + "\", " +
-                                "\"urlImmagine\":\"" + urlImmagine + "\"}"))
+                .POST(HttpRequest.BodyPublishers.ofString(
+                        "{\"titolo\":\"" + titolo + "\", " +
+                        "\"descrizione\":\"" + descrizione + "\", " +
+                        "\"priorita\":\"" + priorita + "\", " +
+                        "\"urlImmagine\":\"" + urlImmagine + "\"}"
+                    ))
                 .build();
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
