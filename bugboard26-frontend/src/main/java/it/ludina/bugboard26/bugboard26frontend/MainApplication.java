@@ -9,6 +9,7 @@ public class MainApplication extends Application {
         WindowManager.apriFinestra("login.fxml");
     }
 
+
     public static void main() {
         launch();
     }

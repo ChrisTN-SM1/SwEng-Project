@@ -9,6 +9,7 @@ public class ImpostaStatoCompletatoController {
         WindowManager.chiudiFinestra(event);
     }
 
+
     public void procedi(ActionEvent event) {
         //HTTPRequestManager.impostaStatoCompletato(idIssue);
         WindowManager.chiudiFinestra(event);

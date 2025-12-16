@@ -3,17 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="498.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.ludina.bugboard26.bugboard26frontend.ArchivioController">
-   <TableView layoutX="14.0" layoutY="14.0" prefHeight="563.0" prefWidth="971.0">
+<AnchorPane prefHeight="498.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.ArchivioController">
+   <TableView fx:id="archivioTable" layoutX="14.0" layoutY="14.0" prefHeight="563.0" prefWidth="971.0">
       <columns>
-         <TableColumn minWidth="50.0" prefWidth="-1.0" text="ID"/>
-         <TableColumn minWidth="200.0" prefWidth="-1.0" text="Titolo"/>
-         <TableColumn minWidth="150.0" prefWidth="-1.0" text="Tipologia"/>
-         <TableColumn minWidth="150.0" prefWidth="-1.0" text="Priorità"/>
-         <TableColumn minWidth="150.0" prefWidth="-1.0" text="Stato"/>
+         <TableColumn fx:id="idColumn" minWidth="50.0" prefWidth="-1.0" text="ID" />
+         <TableColumn fx:id="titoloColumn" minWidth="200.0" prefWidth="-1.0" text="Titolo" />
+         <TableColumn fx:id="tipologiaColumn" minWidth="150.0" prefWidth="-1.0" text="Tipologia" />
+         <TableColumn fx:id="prioritaColumn" minWidth="150.0" prefWidth="-1.0" text="Priorità" />
+         <TableColumn fx:id="statoColumn" minWidth="150.0" prefWidth="-1.0" text="Stato" />
       </columns>
    </TableView>
 </AnchorPane>

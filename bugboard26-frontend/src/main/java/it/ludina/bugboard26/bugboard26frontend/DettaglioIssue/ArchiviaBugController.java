@@ -8,6 +8,7 @@ public class ArchiviaBugController {
         WindowManager.chiudiFinestra(event);
     }
 
+
     public void procedi(ActionEvent event) {
         //HTTPRequestManager.archivia(idIssue);
         WindowManager.chiudiFinestra(event);

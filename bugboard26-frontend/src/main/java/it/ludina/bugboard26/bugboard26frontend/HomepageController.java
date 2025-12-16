@@ -1,26 +1,28 @@
 package it.ludina.bugboard26.bugboard26frontend;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HomepageController {
+public class HomepageController implements Initializable {
 
-    public void initialize(){
-
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        //chiama get all issues
     }
+
 
     public void mostraSegnalaIssue() {
         WindowManager.apriFinestra("segnala-issue/segnala-issue.fxml");
     }
 
+
     public void mostraCreaNuovaUtenza(){
         WindowManager.apriFinestra("crea-nuova-utenza.fxml");
     }
 
-    public void getAllIssues(){
-        //fa cose
+
+    public void reloadPage(){
+        //initialize();
     }
 }

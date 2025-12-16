@@ -8,6 +8,7 @@ public class CreaNuovaUtenzaController {
         WindowManager.chiudiFinestra(event);
     }
 
+
     public void conferma(ActionEvent event) {
         //Fai roba
         WindowManager.chiudiFinestra(event);

@@ -9,6 +9,7 @@ public class AssegnaIssueController {
         WindowManager.chiudiFinestra(event);
     }
 
+
     public void conferma(ActionEvent event) {
         //fai cose
         WindowManager.chiudiFinestra(event);

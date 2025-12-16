@@ -10,6 +10,7 @@ module it.ludina.bugboard26fe.bugboard26frontend {
     requires eu.hansolo.tilesfx;
     requires java.desktop;
     requires java.net.http;
+    requires static lombok;
 
     opens it.ludina.bugboard26.bugboard26frontend to javafx.fxml;
     exports it.ludina.bugboard26.bugboard26frontend;

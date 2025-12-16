@@ -26,6 +26,7 @@ public class WindowManager {
         stage.show();
     }
 
+
     public static void chiudiFinestra(ActionEvent event){
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();

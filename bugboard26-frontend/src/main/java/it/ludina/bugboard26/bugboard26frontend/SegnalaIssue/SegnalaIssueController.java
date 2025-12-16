@@ -23,7 +23,7 @@ public class SegnalaIssueController implements Initializable {
     private ChoiceBox<String> tipologiaChoiceBox;
     private final String[] tipologie = {"Question", "Bug", "Documentation", "Feature"};
     @FXML
-    private ChoiceBox<String> priorityChoiceBox;
+    private ChoiceBox<String> prioritaChoiceBox;
     private final String[] priorities = {"Vitale", "Alta", "Media", "Bassa"};
     @FXML
     public Button allegaFileButton;
@@ -32,26 +32,27 @@ public class SegnalaIssueController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tipologiaChoiceBox.getItems().addAll(tipologie);
-        priorityChoiceBox.getItems().addAll(priorities);
+        prioritaChoiceBox.getItems().addAll(priorities);
     }
+
 
     public void annulla(ActionEvent event) {
         WindowManager.chiudiFinestra(event);
     }
 
+
     public void conferma(ActionEvent event) {
         String titolo  = titoloTextField.getText();
         String descrizione = descrizioneTextArea.getText();
         String tipologia = tipologiaChoiceBox.getValue();
-        String priority = priorityChoiceBox.getValue();
+        String priorita = prioritaChoiceBox.getValue();
         String immagine = ""; //deve esser file immagine
 
         if(titolo.isBlank() || descrizione.isBlank() || tipologia == null) {
             WindowManager.apriFinestra("segnala-issue/campo-obbligatorio-vuoto.fxml");
         } else {
-            HTTPRequestManager.segnalaIssue(titolo, descrizione, tipologia, priority, immagine);
+            HTTPRequestManager.segnalaIssue(titolo, descrizione, tipologia, priorita, immagine);
             WindowManager.chiudiFinestra(event);
         }
     }
-
 }
