@@ -8,9 +8,15 @@ import it.ludina.bugboard26.data.issue.enums.StatoEnum;
 @JsonTypeName("feature")
 public class IssueFeature extends Issue{
 
+    public IssueFeature(){}
+
     public IssueFeature(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato,
             String urlImmagine) {
         super(idIssue, titolo, descrizione, priorita, stato, urlImmagine);
+    }
+
+    public IssueFeature(String titolo, String descrizione, PrioritaEnum priorita, String urlImmagine) {
+        super(titolo, descrizione, priorita, urlImmagine);
     }
 
     @Override

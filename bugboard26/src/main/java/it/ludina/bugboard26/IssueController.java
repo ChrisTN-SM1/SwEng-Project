@@ -12,13 +12,7 @@ import it.ludina.bugboard26.data.issue.IssueDocumentation;
 import it.ludina.bugboard26.data.issue.IssueFeature;
 import it.ludina.bugboard26.data.issue.IssueQuestion;
 
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -39,9 +33,9 @@ public class IssueController {
 
     }
 
+    @Path("bug")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("bug")
     public Response addBug(IssueBug bug) {
         try {
             dao.add(bug);
@@ -51,9 +45,9 @@ public class IssueController {
         }
     }
 
+    @Path("documentation")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("documentation")
     public Response addDocumentation(IssueDocumentation documentation) {
         try {
             dao.add(documentation);
@@ -63,9 +57,9 @@ public class IssueController {
         }
     }
 
+    @Path("feature")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("feature")
     public Response addFeature(IssueFeature feature) {
         try {
             dao.add(feature);
@@ -75,9 +69,9 @@ public class IssueController {
         }
     }
 
+    @Path("question")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("question")
     public Response addQuestion(IssueQuestion question) {
         try {
             dao.add(question);
@@ -87,9 +81,9 @@ public class IssueController {
         }
     }
 
+    @Path("archive")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("archive")
     public Response setArchived(int id) {
         try {
             dao.setArchived(id);
@@ -99,9 +93,9 @@ public class IssueController {
         }
     }
 
+    @Path("complete")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("complete")
     public Response setCompleted(int id) {
         try {
             dao.setCompleted(id);
@@ -111,9 +105,9 @@ public class IssueController {
         }
     }
 
+    @Path("assign")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("assign")
     public Response assignIssue(@QueryParam("id") int id, @QueryParam("users") String[] users) {
         try {
             dao.assignIssue(id, users);

@@ -35,8 +35,8 @@ public class PGIssueDAO implements IssueDAO{
             int id = rs.getInt(1);
             String titolo = rs.getString(2);
             String tipologia = rs.getString(3);
-            PrioritaEnum priorita = PrioritaEnum.valueOf(rs.getString(4));
-            StatoEnum stato = StatoEnum.valueOf(rs.getString(5));
+            PrioritaEnum priorita = PrioritaEnum.valueOf(rs.getString(4).toUpperCase());
+            StatoEnum stato = StatoEnum.valueOf(rs.getString(5).toUpperCase());
 
             Issue i = IssueFactory.create(id, titolo, tipologia, priorita, stato);
 
@@ -51,12 +51,13 @@ public class PGIssueDAO implements IssueDAO{
     public void add(Issue issue) throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
-        ps = conn.prepareStatement("CALL crea_issue(?,?,?,?)");
+        ps = conn.prepareStatement("CALL crea_issue(?,?,?,?,?)");
 
         ps.setString(1, issue.getTitolo());
         ps.setString(2, issue.getDescrizione());
         ps.setString(3, issue.getIssueType());
-        ps.setString(4, issue.getPriorita().toString());
+        ps.setString(4, issue.getPriorita().toString().toLowerCase());
+        ps.setString(5, issue.getUrlImmagine());
 
         ps.execute();
 

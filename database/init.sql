@@ -2,7 +2,7 @@
 
 CREATE TYPE UserType AS ENUM ('semplice', 'admin');
 CREATE TYPE IssueType AS ENUM ('question', 'bug', 'documentation', 'feature');
-CREATE TYPE IssuePriority AS ENUM ('bassa', 'media', 'alta', 'vitale', 'non specificata');
+CREATE TYPE IssuePriority AS ENUM ('bassa', 'media', 'alta', 'vitale', 'non_specificata');
 CREATE TYPE IssueStatus AS ENUM ('todo', 'assegnato', 'completato', 'archiviato');
 
 --Tables
@@ -18,7 +18,7 @@ CREATE TABLE issue (
     titolo VARCHAR(50),
     descrizione VARCHAR(2000),
     tipologia IssueType,
-    priorita IssuePriority DEFAULT 'non specificata',
+    priorita IssuePriority DEFAULT 'non_specificata',
     stato IssueStatus DEFAULT 'todo',
     immagine VARCHAR(200)
 );
@@ -38,11 +38,11 @@ BEGIN
     INSERT INTO utente(email, "password", tipologia) VALUES (newEmail, newPass, "type");
 END; $$;
 
-CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(50), newDesc VARCHAR(2000), "type" IssueType, priority IssuePriority, image VARCHAR(200))
+CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(50), newDesc VARCHAR(2000), "type" VARCHAR(50), priority VARCHAR(50), image VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO issue(titolo, descrizione, tipologia, priorita, immagine) VALUES (newTitle, newDesc, "type", priority, image);
+    INSERT INTO issue(titolo, descrizione, tipologia, priorita, immagine) VALUES (newTitle, newDesc, CAST("type" as IssueType), CAST(priority as IssuePriority), image);
 END; $$;
 
 CREATE OR REPLACE PROCEDURE imposta_issue_completata(idIssue INT)
