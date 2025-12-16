@@ -9,7 +9,7 @@ CREATE TYPE IssueStatus AS ENUM ('todo', 'assegnato', 'completato', 'archiviato'
 
 CREATE TABLE utente (
     email VARCHAR(50) PRIMARY KEY,
-    "password" VARCHAR(50),
+    userPassword VARCHAR(50),
     tipologia UserType
 );
 
@@ -35,7 +35,7 @@ CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(50), newPass VARCHAR(50
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO utente(email, "password", tipologia) VALUES (newEmail, newPass, "type");
+    INSERT INTO utente(email, userPassword, tipologia) VALUES (newEmail, newPass, "type");
 END; $$;
 
 CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(50), newDesc VARCHAR(2000), "type" VARCHAR(50), priority VARCHAR(50), image VARCHAR(200))
@@ -95,7 +95,7 @@ DECLARE
 BEGIN
     IF userEmail NOT IN (SELECT email FROM utente) THEN
         outcome = 1;
-    ELSIF userPassword <> (SELECT "password" FROM utente WHERE email = userEmail) THEN
+    ELSIF userPassword <> (SELECT userPassword FROM utente WHERE email = userEmail) THEN
         outcome = 2;
     ELSE
         outcome = 0;
@@ -105,34 +105,34 @@ END;
 $outcome$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION visualizza_lista_issue()
-RETURNS TABLE("id" INT, titolo VARCHAR(50), tipologia IssueType, priorita IssuePriority,  stato IssueStatus)
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(50), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
 LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT "id", titolo, tipologia, priorità, stato
+        SELECT "id", titolo, tipologia, priorita, stato
         FROM issue
         WHERE stato <> 'archiviato';
 END; $$;
 
 CREATE OR REPLACE FUNCTION visualizza_archivio_bug()
-RETURNS TABLE("id" INT, titolo VARCHAR(50), tipologia IssueType, priorita IssuePriority,  stato IssueStatus)
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(50), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
 LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT "id", titolo, tipologia, priorità, stato
+        SELECT "id", titolo, tipologia, priorita, stato
         FROM issue
         WHERE stato = 'archiviato';
 END; $$;
 
 CREATE OR REPLACE FUNCTION visualizza_dettagli_issue(idIssue INT)
-RETURNS TABLE("id" INT, titolo VARCHAR(50), descrizione VARCHAR(2000), tipologia IssueType, priorita IssuePriority,  stato IssueStatus)
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(50), descrizioneIssue VARCHAR(2000), tipologiaIssue IssueType, prioritaIssue IssuePriority,  statoIssue IssueStatus, immagineIssue VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT "id", titolo, descrizione, tipologia, priorità, stato
+        SELECT "id", titolo, descrizione, tipologia, priorita, stato, immagine
         FROM issue
         WHERE "id" = idIssue;
 END; $$;

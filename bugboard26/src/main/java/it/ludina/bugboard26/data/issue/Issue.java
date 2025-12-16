@@ -9,7 +9,6 @@ import lombok.ToString;
 
 @ToString
 public abstract class Issue {
-
     @Getter @Setter protected int idIssue;
     @Getter @Setter protected String titolo;
     @Getter @Setter protected String descrizione;

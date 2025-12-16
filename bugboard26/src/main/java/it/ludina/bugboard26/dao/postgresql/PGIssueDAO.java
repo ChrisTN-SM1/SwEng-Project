@@ -26,7 +26,7 @@ public class PGIssueDAO implements IssueDAO{
 
         List<Issue> result = new ArrayList<>();
 
-        ps = conn.prepareStatement("SELECT visualizza_lista_issue()");
+        ps = conn.prepareStatement("SELECT * FROM visualizza_lista_issue()");
 
         rs = ps.executeQuery();
 
