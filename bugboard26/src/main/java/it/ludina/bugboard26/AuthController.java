@@ -12,6 +12,8 @@ import jakarta.ws.rs.Path;
 @Path("auth")
 public class AuthController {
 
+    private AuthController(){}
+
     private static Dotenv env = Dotenv.load();
 
     private static final String ISSUER = "bugboard26-rest-api";
@@ -25,8 +27,7 @@ public class AuthController {
         try {
             DecodedJWT decodedJWT = verifier.verify(token);
             return decodedJWT.getClaim("username").asString();
-        } catch (JWTVerificationException e) {
-            System.out.println(e.getMessage());
+        } catch (JWTVerificationException _) {
             return null;
         }
     }

@@ -22,11 +22,11 @@ public class PostgresConnection {
     @Getter private Connection connection = null;
 
 
-    private PostgresConnection() {
+    private PostgresConnection() throws SQLException {
         try {
 			connection = DriverManager.getConnection(urlDatabase, DB_USERNAME, DB_PASSWORD);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new  SQLException(e);
         }
     }
 

@@ -17,7 +17,6 @@ import it.ludina.bugboard26.data.issue.enums.StatoEnum;
 public class PGIssueDAO implements IssueDAO{
 
     private Connection conn = null;
-    private ResultSet rs = null;
     private PreparedStatement ps;
 
     @Override
@@ -26,9 +25,9 @@ public class PGIssueDAO implements IssueDAO{
 
         List<Issue> result = new ArrayList<>();
 
-        ps = conn.prepareStatement("SELECT * FROM visualizza_lista_issue()");
+        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_lista_issue()");
 
-        rs = ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
 

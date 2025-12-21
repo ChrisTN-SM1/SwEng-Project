@@ -27,8 +27,7 @@ public class IssueController {
 
         try {
             return dao.getAllIssues();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException _) {
             return Collections.emptyList();
         }
 
