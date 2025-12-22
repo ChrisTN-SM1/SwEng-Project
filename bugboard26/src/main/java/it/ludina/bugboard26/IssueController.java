@@ -21,12 +21,26 @@ public class IssueController {
 
     IssueDAO dao = new PGIssueDAO();
 
+    @Path("list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Issue> getIssues() {
 
         try {
-            return dao.getAllIssues();
+            return dao.getIssueList();
+        } catch (SQLException _) {
+            return Collections.emptyList();
+        }
+
+    }
+
+    @Path("archive")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Issue> getArchive() {
+
+        try {
+            return dao.getBugArchive();
         } catch (SQLException _) {
             return Collections.emptyList();
         }
@@ -81,7 +95,7 @@ public class IssueController {
         }
     }
 
-    @Path("archive")
+    @Path("setarchived")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setArchived(int id) {
@@ -93,7 +107,7 @@ public class IssueController {
         }
     }
 
-    @Path("complete")
+    @Path("setcompleted")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setCompleted(int id) {

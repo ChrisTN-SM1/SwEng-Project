@@ -33,8 +33,7 @@ public abstract class Issue {
     protected Issue(String titolo, String descrizione, PrioritaEnum priorita, String urlImmagine){
         this.titolo = titolo;
         this.descrizione = descrizione;
-        if(priorita == null) this.priorita = PrioritaEnum.NON_SPECIFICATA;
-        else this.priorita = priorita;
+        this.priorita = priorita;
         this.urlImmagine = urlImmagine;
     }
 

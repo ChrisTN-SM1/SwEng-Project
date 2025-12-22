@@ -11,6 +11,7 @@
           <TableColumn fx:id="tipologiaColumn" minWidth="150.0" prefWidth="-1.0" text="Tipologia" />
           <TableColumn fx:id="prioritaColumn" minWidth="150.0" prefWidth="-1.0" text="Priorità" />
           <TableColumn fx:id="statoColumn" minWidth="150.0" prefWidth="-1.0" text="Stato" />
+          <TableColumn fx:id="visualizzaColumn" minWidth="150.0" prefWidth="-1.0" text="Visualizza" />
       </columns>
     </TableView>
 </AnchorPane>

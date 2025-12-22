@@ -18,16 +18,17 @@ public class PGIssueDAO implements IssueDAO{
 
     private Connection conn = null;
     private PreparedStatement ps;
+    ResultSet rs;
 
     @Override
-    public List<Issue> getAllIssues() throws SQLException {
+    public List<Issue> getIssueList() throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
         List<Issue> result = new ArrayList<>();
 
         ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_lista_issue()");
 
-        ResultSet rs = ps.executeQuery();
+        rs = ps.executeQuery();
 
         while (rs.next()) {
 
@@ -37,9 +38,36 @@ public class PGIssueDAO implements IssueDAO{
             PrioritaEnum priorita = PrioritaEnum.valueOf(rs.getString(4).toUpperCase());
             StatoEnum stato = StatoEnum.valueOf(rs.getString(5).toUpperCase());
 
-            Issue i = IssueFactory.create(id, titolo, tipologia, priorita, stato);
+            Issue issue = IssueFactory.create(id, titolo, tipologia, priorita, stato);
 
-            result.add(i);
+            result.add(issue);
+        }
+        rs.close();
+        conn.close();
+        return result;
+    }
+
+    @Override
+    public List<Issue> getBugArchive() throws SQLException {
+        conn = PostgresConnection.getInstance().getConnection();
+
+        List<Issue> result = new ArrayList<>();
+
+        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_archivio_bug()");
+
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+
+            int id = rs.getInt(1);
+            String titolo = rs.getString(2);
+            String tipologia = rs.getString(3);
+            PrioritaEnum priorita = PrioritaEnum.valueOf(rs.getString(4).toUpperCase());
+            StatoEnum stato = StatoEnum.valueOf(rs.getString(5).toUpperCase());
+
+            Issue issue = IssueFactory.create(id, titolo, tipologia, priorita, stato);
+
+            result.add(issue);
         }
         rs.close();
         conn.close();
@@ -104,6 +132,5 @@ public class PGIssueDAO implements IssueDAO{
 
         conn.close();
     }
-
 
 }

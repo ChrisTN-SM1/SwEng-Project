@@ -1,4 +1,4 @@
-FROM maven:3.9.11-eclipse-temurin-25-alpine
+FROM maven:3.9.11-eclipse-temurin-25
 
 # application placed into /opt/app
 RUN mkdir -p /opt/app

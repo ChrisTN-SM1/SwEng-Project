@@ -1,7 +1,5 @@
-package it.ludina.bugboard26.bugboard26frontend.SegnalaIssue;
+package it.ludina.bugboard26.bugboard26frontend;
 
-import it.ludina.bugboard26.bugboard26frontend.HTTPRequestManager;
-import it.ludina.bugboard26.bugboard26frontend.WindowManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,10 +46,13 @@ public class SegnalaIssueController implements Initializable {
         String priorita = prioritaChoiceBox.getValue();
         String immagine = ""; //deve esser file immagine
 
+        if(priorita == null) priorita = "Non_specificata";
+
         if(titolo.isBlank() || descrizione.isBlank() || tipologia == null) {
             WindowManager.apriFinestra("segnala-issue/campo-obbligatorio-vuoto.fxml");
         } else {
             HTTPRequestManager.segnalaIssue(titolo, descrizione, tipologia, priorita, immagine);
+            //homepage.reload
             WindowManager.chiudiFinestra(event);
         }
     }

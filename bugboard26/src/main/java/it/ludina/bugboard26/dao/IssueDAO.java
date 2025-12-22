@@ -6,7 +6,9 @@ import java.util.List;
 import it.ludina.bugboard26.data.issue.Issue;
 
 public interface IssueDAO {
-    List<Issue> getAllIssues() throws SQLException;
+    List<Issue> getIssueList() throws SQLException;
+
+    List<Issue> getBugArchive() throws SQLException;
 
     void add(Issue issue) throws SQLException;
 
@@ -15,4 +17,5 @@ public interface IssueDAO {
     void setCompleted(int id) throws SQLException;
 
     void assignIssue(int id, String[] users) throws SQLException;
+
 }

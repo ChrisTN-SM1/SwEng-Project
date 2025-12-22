@@ -1,5 +1,6 @@
 package it.ludina.bugboard26.bugboard26frontend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,11 +13,12 @@ public class HTTPRequestManager {
     private static final HttpClient client = HttpClient.newHttpClient();
     private static final String BASE_URI = "http://localhost:8080/";
     private static String token;
+    static ObjectMapper objectMapper = new ObjectMapper();
 
 
     public static void impostaStatoCompletato(int idIssue){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issue/complete"))
+                .uri(URI.create(BASE_URI + "issues/setcompleted"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + token)
                 .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + idIssue + "\"}"))
@@ -31,7 +33,7 @@ public class HTTPRequestManager {
 
     public static void archivia(int idIssue){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issue/archive"))
+                .uri(URI.create(BASE_URI + "issues/setarchived"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + token)
                 .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + idIssue + "\"}"))
@@ -62,13 +64,55 @@ public class HTTPRequestManager {
         }
     }
 
-    public static List<Issue> getArchivio(){
-        ArrayList<Issue> lista = new ArrayList<>();
-        lista.add(new Issue(30, "ciao", "ciao23", "de", "da", "da", "ds"));
-        return lista;
-    }
-    public static List<Issue> getListaIssue(){
-        return null;
+
+    public static void creaNuovaUtenza(String email, String password, String tipologia){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URI + "user/newuser" +"/"))
+                .header("Content-Type", "application/json")
+                //.header("Authorization", "Bearer " + token)
+                .POST(HttpRequest.BodyPublishers.ofString
+                        ("{\"email\":\"" + email + "\"," +
+                                "\"password\":\"" + password + "\"," +
+                                "\"tipologia\":\"" + tipologia + "\"}"))
+                .build();
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+
+    public static List<Issue> getArchivio(){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URI + "issues/archive/"))
+                .header("Content-Type", "application/json")
+                //.header("Authorization", "Bearer " + token)
+                .GET()
+                .build();
+        return getList(request);
+    }
+
+
+    public static List<Issue> getListaIssue(){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URI + "issues/list/"))
+                .header("Content-Type", "application/json")
+                //.header("Authorization", "Bearer " + token)
+                .GET()
+                .build();
+        return getList(request);
+    }
+
+
+    private static List<Issue> getList(HttpRequest request) {
+        Issue[] lista;
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            lista = objectMapper.readValue(response.body(), Issue[].class);
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return new ArrayList<>(List.of(lista));
+    }
 }

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.SegnalaIssue.SegnalaIssueController">
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.SegnalaIssueController">
    <TextField fx:id="titoloTextField" layoutX="196.0" layoutY="103.0" prefHeight="25.0" prefWidth="589.0" />
    <TextArea fx:id="descrizioneTextArea" layoutX="196.0" layoutY="148.0" prefHeight="200.0" prefWidth="589.0" />
    <Label layoutX="103.0" layoutY="107.0" text="Titolo*:" />

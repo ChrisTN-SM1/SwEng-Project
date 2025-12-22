@@ -13,10 +13,10 @@
       </font>
    </Label>
     <Label layoutX="141.0" layoutY="84.0" text="Email*:" />
-    <TextField layoutX="22.0" layoutY="113.0" prefHeight="25.0" prefWidth="274.0" />
+    <TextField fx:id="emailTextField" layoutX="22.0" layoutY="113.0" prefHeight="25.0" prefWidth="274.0" />
    <Label layoutX="131.0" layoutY="154.0" text="Password*:" />
-   <TextField layoutX="22.0" layoutY="188.0" prefHeight="25.0" prefWidth="274.0" />
+   <TextField fx:id="passwordTextField" layoutX="22.0" layoutY="188.0" prefHeight="25.0" prefWidth="274.0" />
    <Label layoutX="131.0" layoutY="226.0" text="Tipologia*:" />
-   <ChoiceBox layoutX="22.0" layoutY="250.0" prefHeight="25.0" prefWidth="274.0" />
+   <ChoiceBox fx:id="tipologiaChoiceBox" layoutX="22.0" layoutY="250.0" prefHeight="25.0" prefWidth="274.0" />
    <Label layoutX="10.0" layoutY="292.0" text="* I campi contrassegnati da un asterisco sono obbligatori" />
 </AnchorPane>
