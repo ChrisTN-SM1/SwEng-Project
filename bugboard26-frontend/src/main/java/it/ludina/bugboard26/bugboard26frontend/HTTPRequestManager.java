@@ -1,6 +1,7 @@
 package it.ludina.bugboard26.bugboard26frontend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -72,8 +73,7 @@ public class HTTPRequestManager {
                 //.header("Authorization", "Bearer " + token)
                 .POST(HttpRequest.BodyPublishers.ofString
                         ("{\"email\":\"" + email + "\"," +
-                                "\"password\":\"" + password + "\"," +
-                                "\"tipologia\":\"" + userType + "\"}"))
+                                "\"password\":\"" + password + "\"}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

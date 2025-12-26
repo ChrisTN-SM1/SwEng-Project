@@ -1,6 +1,6 @@
 --Enumerations
 
-CREATE TYPE UserType AS ENUM ('semplice', 'admin');
+CREATE TYPE UserType AS ENUM ('normale', 'admin');
 CREATE TYPE IssueType AS ENUM ('question', 'bug', 'documentation', 'feature');
 CREATE TYPE IssuePriority AS ENUM ('bassa', 'media', 'alta', 'vitale', 'non_specificata');
 CREATE TYPE IssueStatus AS ENUM ('todo', 'assegnato', 'completato', 'archiviato');
@@ -31,11 +31,11 @@ CREATE TABLE assegnazione (
 
 --Procedures
 
-CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(50), newPass VARCHAR(50), "type" UserType)
+CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(50), newPass VARCHAR(50), "type" VARCHAR(50))
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO utente(email, userPassword, tipologia) VALUES (newEmail, newPass, CAST("type" as IssueType));
+    INSERT INTO utente(email, userPassword, tipologia) VALUES (newEmail, newPass, CAST("type" as UserType));
 END; $$;
 
 CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(50), newDesc VARCHAR(2000), "type" VARCHAR(50), priority VARCHAR(50), image VARCHAR(200))

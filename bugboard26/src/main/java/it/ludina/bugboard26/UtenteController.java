@@ -21,10 +21,12 @@ public class UtenteController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createNormalUser(UtenteNormale user) {
+		System.out.println(user.toString());
 		try {
             dao.add(user);
             return Response.status(Response.Status.CREATED).build();
         } catch (SQLException e) {
+			e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
 	}
@@ -33,6 +35,7 @@ public class UtenteController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createAdminUser(UtenteAmministratore user) {
+		System.out.println("ADMIN");
 		try {
             dao.add(user);
             return Response.status(Response.Status.CREATED).build();

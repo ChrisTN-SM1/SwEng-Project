@@ -4,16 +4,29 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@Setter
 public abstract class Utente {
-
+    
     @Getter private String email;
     private String password;
+
+    protected Utente(){}
+
+    protected Utente(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
 
     public abstract String getUserType();
 
