@@ -35,7 +35,7 @@ CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(50), newPass VARCHAR(50
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO utente(email, userPassword, tipologia) VALUES (newEmail, newPass, "type");
+    INSERT INTO utente(email, userPassword, tipologia) VALUES (newEmail, newPass, CAST("type" as IssueType));
 END; $$;
 
 CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(50), newDesc VARCHAR(2000), "type" VARCHAR(50), priority VARCHAR(50), image VARCHAR(200))

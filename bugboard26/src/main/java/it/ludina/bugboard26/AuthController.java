@@ -27,7 +27,7 @@ public class AuthController {
         try {
             DecodedJWT decodedJWT = verifier.verify(token);
             return decodedJWT.getClaim("username").asString();
-        } catch (JWTVerificationException _) {
+        } catch (JWTVerificationException e) {
             return null;
         }
     }

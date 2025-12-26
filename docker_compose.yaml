@@ -8,6 +8,8 @@ services:
   backend:
     build: ./bugboard26/
     container_name: "backend"
+    tty: true
+    stdin_open: true
     ports:
       - 8080:8080
     depends_on:

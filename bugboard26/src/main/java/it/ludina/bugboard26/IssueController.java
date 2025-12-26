@@ -28,7 +28,7 @@ public class IssueController {
 
         try {
             return dao.getIssueList();
-        } catch (SQLException _) {
+        } catch (SQLException e) {
             return Collections.emptyList();
         }
 
@@ -41,7 +41,7 @@ public class IssueController {
 
         try {
             return dao.getBugArchive();
-        } catch (SQLException _) {
+        } catch (SQLException e) {
             return Collections.emptyList();
         }
 
