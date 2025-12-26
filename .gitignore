@@ -8,3 +8,4 @@ bugboard26-frontend/.vscode/*
 bugboard26-frontend/.idea/*
 database/.vscode/*
 /bugboard26/test calls
+bugboard26-frontend/target/*

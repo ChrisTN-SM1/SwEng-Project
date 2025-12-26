@@ -1,5 +1,7 @@
 module it.ludina.bugboard26.bugboard26frontend {
-    requires javafx.controls;
+    requires transitive javafx.base;
+    requires transitive javafx.graphics;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
 
