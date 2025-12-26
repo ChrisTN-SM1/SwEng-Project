@@ -2,46 +2,34 @@ package it.ludina.bugboard26.bugboard26frontend;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 
-import javax.xml.transform.Source;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
-import java.util.ResourceBundle;
 
-public class HomepageController implements Initializable {
+public class HomepageController {
 
     @FXML
-    Tab listaIssueTab;
+    Tab issueListTab;
     @FXML
-    Tab archivioTab;
+    Tab archiveTab;
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            listaIssueTab.setContent(FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("lista-issue.fxml"))));
-            archivioTab.setContent(FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("archivio.fxml"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public void showCreateIssue() {
+        WindowManager.openWindow("create-issue.fxml");
     }
 
 
-    public void mostraSegnalaIssue() {
-        WindowManager.apriFinestra("segnala-issue/segnala-issue.fxml");
+    public void showCreateUser(){
+        WindowManager.openWindow("create-user.fxml");
     }
 
 
-    public void mostraCreaNuovaUtenza(){
-        WindowManager.apriFinestra("crea-nuova-utenza.fxml");
-    }
-
-
-    public void reloadPage(){
-        initialize(null,null);
+    public void reloadPage() throws IOException {
+        AnchorPane issueList = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("issue-list.fxml")));
+        AnchorPane archive = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("archive.fxml")));
+        issueListTab.setContent(issueList);
+        archiveTab.setContent(archive);
     }
 }

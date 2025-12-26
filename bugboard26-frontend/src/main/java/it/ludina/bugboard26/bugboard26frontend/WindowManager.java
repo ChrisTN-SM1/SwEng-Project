@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class WindowManager {
 
-    public static void apriFinestra(String nomeLayout){
+    public static void openWindow(String nomeLayout){
         FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource(nomeLayout));
         Scene scene;
         try {
@@ -27,7 +27,7 @@ public class WindowManager {
     }
 
 
-    public static void chiudiFinestra(ActionEvent event){
+    public static void closeWindow(ActionEvent event){
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();

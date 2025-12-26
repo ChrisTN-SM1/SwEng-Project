@@ -10,29 +10,29 @@ public class Issue {
     @JsonProperty("idIssue")
     private int id;
     @JsonProperty("titolo")
-    private String titolo;
+    private String title;
     @JsonProperty("descrizione")
-    private String descrizione;
+    private String description;
     @JsonProperty("issueType")
-    private String tipologia;
+    private String issueType;
     @JsonProperty("priorita")
-    private String priorita;
+    private String priority;
     @JsonProperty("stato")
-    private String stato;
+    private String state;
     @JsonProperty("urlImmagine")
-    private String immagine;
+    private String image;
 
 
     public Issue() {}
 
 
-    public Issue(int id, String title, String description, String tipologia, String priorita, String stato, String immagine) {
+    public Issue(int id, String title, String description, String issueType, String priority, String state, String image) {
         this.id = id;
-        this.titolo = title;
-        this.descrizione = description;
-        this.tipologia = tipologia;
-        this.priorita = priorita;
-        this.stato = stato;
-        this.immagine = immagine;
+        this.title = title;
+        this.description = description;
+        this.issueType = issueType;
+        this.priority = priority;
+        this.state = state;
+        this.image = image;
     }
 }

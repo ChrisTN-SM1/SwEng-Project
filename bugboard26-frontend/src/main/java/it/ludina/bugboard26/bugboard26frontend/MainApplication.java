@@ -6,11 +6,11 @@ import javafx.stage.Stage;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage){
-        WindowManager.apriFinestra("login.fxml");
+        WindowManager.openWindow("login.fxml");
     }
 
 
-    public static void main() {
+    public static void main(String [] args) {
         launch();
     }
 }

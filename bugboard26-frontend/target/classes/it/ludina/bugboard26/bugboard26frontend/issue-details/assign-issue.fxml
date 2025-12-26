@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.IssueDetails.AssignIssueController">
+   <Label layoutX="107.0" layoutY="24.0" text="A chi vuoi affidare la issue selezionata??">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Label>
+   <Button layoutX="73.0" layoutY="536.0" mnemonicParsing="false" onAction="#annullaButton" prefHeight="50.0" prefWidth="69.0" style="-fx-background-color: lightcoral" text="Annulla" />
+   <Button layoutX="459.0" layoutY="536.0" mnemonicParsing="false" onAction="#confermaButton" prefHeight="50.0" prefWidth="69.0" style="-fx-background-color: lightgreen" text="Conferma" />
+</AnchorPane>

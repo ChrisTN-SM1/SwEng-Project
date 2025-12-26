@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" maxHeight="400.0" maxWidth="300.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="300.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.LoginController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label contentDisplay="CENTER" text="BUGBOARD26">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <Separator prefWidth="200.0" />
+   <Label text="Email:" />
+   <TextField prefHeight="25.0" prefWidth="255.0" />
+   <Label text="PLACEHOLDER" />
+   <Separator prefHeight="59.0" prefWidth="260.0" />
+   <Label text="Password:" />
+   <PasswordField />
+   <Label text="PLACEHOLDER" />
+   <Separator prefHeight="139.0" prefWidth="260.0" />
+    <Button onAction="#login" text="Login" />
+</VBox>

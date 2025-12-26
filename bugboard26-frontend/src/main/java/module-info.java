@@ -8,14 +8,14 @@ module it.ludina.bugboard26.bugboard26frontend {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
-    requires java.net.http;
     requires static lombok;
     requires com.fasterxml.jackson.databind;
+    requires java.net.http;
 
     opens it.ludina.bugboard26.bugboard26frontend to javafx.fxml;
     exports it.ludina.bugboard26.bugboard26frontend;
-    exports it.ludina.bugboard26.bugboard26frontend.DettaglioIssue;
-    opens it.ludina.bugboard26.bugboard26frontend.DettaglioIssue to javafx.fxml;
-    exports it.ludina.bugboard26.bugboard26frontend.ControllerErrori;
-    opens it.ludina.bugboard26.bugboard26frontend.ControllerErrori to javafx.fxml;
+    exports it.ludina.bugboard26.bugboard26frontend.IssueDetails;
+    opens it.ludina.bugboard26.bugboard26frontend.IssueDetails to javafx.fxml;
+    exports it.ludina.bugboard26.bugboard26frontend.ErrorsController;
+    opens it.ludina.bugboard26.bugboard26frontend.ErrorsController to javafx.fxml;
 }

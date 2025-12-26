@@ -16,12 +16,12 @@ public class HTTPRequestManager {
     static ObjectMapper objectMapper = new ObjectMapper();
 
 
-    public static void impostaStatoCompletato(int idIssue){
+    public static void setStateCompleted(int issueId){
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/setcompleted"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + token)
-                .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + idIssue + "\"}"))
+                .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + issueId + "\"}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -31,12 +31,12 @@ public class HTTPRequestManager {
     }
 
 
-    public static void archivia(int idIssue){
+    public static void setStateArchived(int issueId){
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/setarchived"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + token)
-                .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + idIssue + "\"}"))
+                .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + issueId + "\"}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -46,16 +46,16 @@ public class HTTPRequestManager {
     }
 
 
-    public static void segnalaIssue(String titolo, String descrizione, String tipologia, String priorita, String urlImmagine){
+    public static void createIssue(String title, String description, String issueType, String priority, String imageURL){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issues/" + tipologia.toLowerCase() +"/"))
+                .uri(URI.create(BASE_URI + "issues/" + issueType.toLowerCase() +"/"))
                 .header("Content-Type", "application/json")
                 //.header("Authorization", "Bearer " + token)
                 .POST(HttpRequest.BodyPublishers.ofString
-                        ("{\"titolo\":\"" + titolo + "\"," +
-                                "\"descrizione\":\"" + descrizione + "\"," +
-                                "\"priorita\":\"" + priorita.toUpperCase() + "\", " +
-                                "\"urlImmagine\":\"" + urlImmagine + "\"}"))
+                        ("{\"titolo\":\"" + title + "\"," +
+                                "\"descrizione\":\"" + description + "\"," +
+                                "\"priorita\":\"" + priority.toUpperCase() + "\", " +
+                                "\"urlImmagine\":\"" + imageURL + "\"}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -65,15 +65,15 @@ public class HTTPRequestManager {
     }
 
 
-    public static void creaNuovaUtenza(String email, String password, String tipologia){
+    public static void createUser(String email, String password, String userType){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "user/newuser" +"/"))
+                .uri(URI.create(BASE_URI + "user/" + userType.toLowerCase() +"/"))
                 .header("Content-Type", "application/json")
                 //.header("Authorization", "Bearer " + token)
                 .POST(HttpRequest.BodyPublishers.ofString
                         ("{\"email\":\"" + email + "\"," +
                                 "\"password\":\"" + password + "\"," +
-                                "\"tipologia\":\"" + tipologia + "\"}"))
+                                "\"tipologia\":\"" + userType + "\"}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -83,7 +83,7 @@ public class HTTPRequestManager {
     }
 
 
-    public static List<Issue> getArchivio(){
+    public static List<Issue> getArchive(){
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/archive/"))
                 .header("Content-Type", "application/json")
@@ -94,7 +94,7 @@ public class HTTPRequestManager {
     }
 
 
-    public static List<Issue> getListaIssue(){
+    public static List<Issue> getIssueList(){
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/list/"))
                 .header("Content-Type", "application/json")
@@ -106,13 +106,13 @@ public class HTTPRequestManager {
 
 
     private static List<Issue> getList(HttpRequest request) {
-        Issue[] lista;
+        Issue[] list;
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            lista = objectMapper.readValue(response.body(), Issue[].class);
+            list = objectMapper.readValue(response.body(), Issue[].class);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new ArrayList<>(List.of(lista));
+        return new ArrayList<>(List.of(list));
     }
 }
