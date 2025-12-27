@@ -24,5 +24,5 @@
    <PasswordField />
    <Label text="PLACEHOLDER" />
    <Separator prefHeight="139.0" prefWidth="260.0" />
-    <Button onAction="#login" text="Login" />
+    <Button onAction="#loginButtonPressed" text="Login" />
 </VBox>

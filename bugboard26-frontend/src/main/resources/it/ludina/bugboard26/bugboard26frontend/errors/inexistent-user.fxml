@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="172.0" prefWidth="333.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26.bugboard26frontend.ErrorsController.InexistentUserController">
+    <Label alignment="CENTER" layoutX="4.0" prefHeight="95.0" prefWidth="325.0" text="L'utente inserito è inesistente.&#10;Inserire un utente valido e riprovare." textAlignment="CENTER">
+        <font>
+          <Font size="20.0" />
+        </font>
+    </Label>
+    <Button layoutX="132.0" layoutY="95.0" mnemonicParsing="false" onAction="#okButtonPressed" prefHeight="50.0" prefWidth="69.0" text="OK" />
+</AnchorPane>

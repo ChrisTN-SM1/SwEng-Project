@@ -89,16 +89,18 @@ END; $$;
 --Functions
 
 CREATE OR REPLACE FUNCTION login_utente(userEmail VARCHAR(50), userPassword VARCHAR(50))
-RETURNS integer AS $outcome$
+RETURNS text AS $outcome$
 DECLARE
-    outcome integer;
+    outcome text;
 BEGIN
     IF userEmail NOT IN (SELECT email FROM utente) THEN
-        outcome = 1;
+        outcome = "wrong email";
     ELSIF userPassword <> (SELECT userPassword FROM utente WHERE email = userEmail) THEN
-        outcome = 2;
+        outcome = "wrong password";
     ELSE
-        outcome = 0;
+        SELECT tipologia INTO outcome
+        FROM utente
+        WHERE email = userEmail;
     END IF;
     RETURN outcome;
 END;

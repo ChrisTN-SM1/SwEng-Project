@@ -34,12 +34,12 @@ public class CreateIssueController implements Initializable {
     }
 
 
-    public void annullaButton(ActionEvent event) {
+    public void annullaButtonPressed(ActionEvent event) {
         WindowManager.closeWindow(event);
     }
 
 
-    public void confermaButton(ActionEvent event) {
+    public void confermaButtonPressed(ActionEvent event) {
         String title  = titleTextField.getText();
         String description = descriptionTextArea.getText();
         String issueType = issueTypeChoiceBox.getValue();

@@ -17,6 +17,24 @@ public class HTTPRequestManager {
     static ObjectMapper objectMapper = new ObjectMapper();
 
 
+    public static int login(String email, String password){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URI + "authentication/" +"/"))
+                .header("Content-Type", "application/json")
+                //.header("Authorization", "Bearer " + token)
+                .POST(HttpRequest.BodyPublishers.ofString
+                        ("{\"email\":\"" + email + "\"," +
+                                "\"password\":\"" + password + "\"}"))
+                .build();
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return 0; //da modificare
+    }
+
+
     public static void setStateCompleted(int issueId){
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/setcompleted"))

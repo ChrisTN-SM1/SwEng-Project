@@ -19,6 +19,6 @@
          <Font size="18.0"/>
       </font>
    </Label>
-   <Button layoutX="206.0" layoutY="176.0" mnemonicParsing="false" onAction="#okButton" prefHeight="50.0" prefWidth="69.0"
+   <Button layoutX="206.0" layoutY="176.0" mnemonicParsing="false" onAction="#okButtonPressed" prefHeight="50.0" prefWidth="69.0"
            text="OK"/>
 </AnchorPane>

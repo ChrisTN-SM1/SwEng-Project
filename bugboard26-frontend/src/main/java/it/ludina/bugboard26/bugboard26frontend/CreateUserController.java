@@ -25,12 +25,12 @@ public class CreateUserController implements Initializable {
     }
 
 
-    public void annullaButton(ActionEvent event) {
+    public void annullaButtonPressed(ActionEvent event) {
         WindowManager.closeWindow(event);
     }
 
 
-    public void confermaButton(ActionEvent event) {
+    public void confermaButtonPressed(ActionEvent event) {
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
         String userType = userTypeChoiceBox.getValue();
