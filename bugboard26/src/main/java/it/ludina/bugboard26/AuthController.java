@@ -27,9 +27,6 @@ public class AuthController {
 
     AuthenticationDAO dao = new PGAuthenticationDAO();
 
-    private AuthController() {
-    }
-
     private static Dotenv env = Dotenv.load();
 
     private static final String ISSUER = "bugboard26-rest-api";
@@ -41,17 +38,17 @@ public class AuthController {
             DecodedJWT decodedJWT = verifier.verify(token);
             return decodedJWT.getClaim("username").asString();
         } catch (JWTVerificationException e) {
+            e.printStackTrace();
             return null;
         }
     }
 
     private String createJWT(String username, long ttlMillis) {
 
-        String token = JWT.create().withIssuer(ISSUER).withClaim("username", username).withIssuedAt(new Date())
+        return JWT.create().withIssuer(ISSUER).withClaim("username", username).withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + ttlMillis)).withJWTId(UUID.randomUUID().toString())
                 .sign(algorithm);
 
-        return token;
     }
 
     @POST
@@ -66,13 +63,15 @@ public class AuthController {
                 case "wrong password":
                     return Response.status(Response.Status.FORBIDDEN).build();
                 default:
-                    String entity = "{\"type\":\"" + result + "\"," +
-                    "\"token\":\"" + createJWT(user.getEmail(), TimeUnit.HOURS.toMillis(8));
+                    String token = createJWT(user.getEmail(), TimeUnit.HOURS.toMillis(8));
+                    String entity = "{\"userType\":\"" + result + "\"," +
+                    "\"token\":\"" + token + "\"}";
                     return Response.status(Response.Status.OK)
                     .entity(entity)
                     .build();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

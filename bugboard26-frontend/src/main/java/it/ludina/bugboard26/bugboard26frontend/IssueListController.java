@@ -32,7 +32,7 @@ public class IssueListController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<Issue> list = FXCollections.observableArrayList(HTTPRequestManager.getIssueList());
 
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("idIssue"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("issueType"));
         priorityColumn.setCellValueFactory(new PropertyValueFactory<>("priority"));

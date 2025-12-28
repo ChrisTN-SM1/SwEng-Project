@@ -21,7 +21,6 @@ public class UtenteController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createNormalUser(UtenteNormale user) {
-		System.out.println(user.toString());
 		try {
             dao.add(user);
             return Response.status(Response.Status.CREATED).build();
@@ -35,7 +34,6 @@ public class UtenteController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createAdminUser(UtenteAmministratore user) {
-		System.out.println("ADMIN");
 		try {
             dao.add(user);
             return Response.status(Response.Status.CREATED).build();

@@ -1,9 +1,10 @@
 package it.ludina.bugboard26.bugboard26frontend;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -11,22 +12,19 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.security.auth.login.LoginException;
 
 public class HTTPRequestManager {
     private static final HttpClient client = HttpClient.newHttpClient();
     private static final String BASE_URI = "http://localhost:8080/";
-    private static String token;
-    static ObjectMapper objectMapper = new ObjectMapper();
+    static Gson gson = new Gson();
 
 
-    public static String login(String email, String password) throws LoginException{
+    public static void login(String email, String password) throws LoginException{
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "authentication/" +"/"))
+                .uri(URI.create(BASE_URI + "authentication/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + token)
                 .POST(HttpRequest.BodyPublishers.ofString
                         ("{\"email\":\"" + email + "\"," +
                                 "\"password\":\"" + password + "\"}"))
@@ -34,20 +32,23 @@ public class HTTPRequestManager {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             if(response.statusCode() == 404 || response.statusCode() == 403) throw new LoginException();
-            Map<String, String> map = objectMapper.readValue(response.body(), new TypeReference<>() {});
-            token = map.get("token");
-            return map.get("type");
+            Type mapType = new TypeToken<HashMap<String, String>>() {}.getType();
+            HashMap<String, String > map = gson.fromJson(response.body(), mapType);
+            Session currentSession = Session.getInstance();
+            currentSession.setToken(map.get("token"));
+            currentSession.setUserType(map.get("userType"));
+
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new LoginException();
         }
     }
 
 
     public static void setStateCompleted(int issueId){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issues/setcompleted"))
+                .uri(URI.create(BASE_URI + "issues/setcompleted/"))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + issueId + "\"}"))
                 .build();
         try {
@@ -60,9 +61,9 @@ public class HTTPRequestManager {
 
     public static void setStateArchived(int issueId){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issues/setarchived"))
+                .uri(URI.create(BASE_URI + "issues/setarchived/"))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + issueId + "\"}"))
                 .build();
         try {
@@ -79,10 +80,10 @@ public class HTTPRequestManager {
                 .header("Content-Type", "application/json")
                 //.header("Authorization", "Bearer " + token)
                 .POST(HttpRequest.BodyPublishers.ofString
-                        ("{\"titolo\":\"" + title + "\"," +
-                                "\"descrizione\":\"" + description + "\"," +
-                                "\"priorita\":\"" + priority.toUpperCase() + "\", " +
-                                "\"urlImmagine\":\"" + imageURL + "\"}"))
+                        ("{\"title\":\"" + title + "\"," +
+                                "\"description\":\"" + description + "\"," +
+                                "\"priority\":\"" + priority.toUpperCase() + "\", " +
+                                "\"image\":\"" + imageURL + "\"}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -135,7 +136,7 @@ public class HTTPRequestManager {
         Issue[] list;
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            list = objectMapper.readValue(response.body(), Issue[].class);
+            list = gson.fromJson(response.body(), Issue[].class);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }

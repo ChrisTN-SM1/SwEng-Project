@@ -29,5 +29,9 @@
           <Font name="System Italic" size="12.0" />
         </font>
     </Label>
-    <Button layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#reloadPage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: orange"/>
+    <Button layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#reloadPage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: orange">
+        <graphic>
+            <FontIcon iconLiteral="mdi2r-reload"/>
+        </graphic>
+    </Button>
 </AnchorPane>

@@ -16,15 +16,15 @@ public class LoginController {
     @FXML
 
     public void loginButtonPressed(ActionEvent event) {
-        /*String email = emailField.getText();
+        String email = emailField.getText();
         String password = passwordField.getText();
 
         try {
-            String userType = HTTPRequestManager.login(email, password);
-            WindowManager.openHomepage(userType);
+            HTTPRequestManager.login(email, password);
+            WindowManager.openWindow("homepage.fxml");
+            WindowManager.closeWindow(event);
         } catch(LoginException e) {
             WindowManager.openWindow("errors/inexistent-user.fxml");
-        }*/
-       WindowManager.openHomepage("simple");
+        }
     }
 }

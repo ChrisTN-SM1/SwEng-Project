@@ -8,14 +8,14 @@ CREATE TYPE IssueStatus AS ENUM ('todo', 'assegnato', 'completato', 'archiviato'
 --Tables
 
 CREATE TABLE utente (
-    email VARCHAR(50) PRIMARY KEY,
-    userPassword VARCHAR(50),
+    email VARCHAR(200) PRIMARY KEY,
+    "password" VARCHAR(200),
     tipologia UserType
 );
 
 CREATE TABLE issue (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    titolo VARCHAR(50),
+    titolo VARCHAR(200),
     descrizione VARCHAR(2000),
     tipologia IssueType,
     priorita IssuePriority DEFAULT 'non_specificata',
@@ -25,20 +25,20 @@ CREATE TABLE issue (
 
 CREATE TABLE assegnazione (
     idIssue INT REFERENCES issue("id") ON DELETE CASCADE,
-    emailUtente VARCHAR(50) REFERENCES utente(email) ON DELETE CASCADE,
+    emailUtente VARCHAR(200) REFERENCES utente(email) ON DELETE CASCADE,
     PRIMARY KEY (idIssue, emailUtente)
 );
 
 --Procedures
 
-CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(50), newPass VARCHAR(50), "type" VARCHAR(50))
+CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(200), newPass VARCHAR(200), "type" VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO utente(email, userPassword, tipologia) VALUES (newEmail, newPass, CAST("type" as UserType));
+    INSERT INTO utente(email, "password", tipologia) VALUES (newEmail, newPass, CAST("type" as UserType));
 END; $$;
 
-CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(50), newDesc VARCHAR(2000), "type" VARCHAR(50), priority VARCHAR(50), image VARCHAR(200))
+CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(200), newDesc VARCHAR(2000), "type" VARCHAR(200), priority VARCHAR(200), image VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -63,7 +63,7 @@ BEGIN
     WHERE  "id" = idIssue;
 END; $$;
 
-CREATE OR REPLACE PROCEDURE assegna_issue(newIdIssue INT, newEmailUtente VARCHAR(50))
+CREATE OR REPLACE PROCEDURE assegna_issue(newIdIssue INT, newEmailUtente VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -78,7 +78,7 @@ BEGIN
     where "id" = issueID;
 END; $$;
 
-CREATE OR REPLACE PROCEDURE elimina_utente(userEmail VARCHAR(50))
+CREATE OR REPLACE PROCEDURE elimina_utente(userEmail VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -88,15 +88,15 @@ END; $$;
 
 --Functions
 
-CREATE OR REPLACE FUNCTION login_utente(userEmail VARCHAR(50), userPassword VARCHAR(50))
+CREATE OR REPLACE FUNCTION login_utente(userEmail VARCHAR(200), userPassword VARCHAR(200))
 RETURNS text AS $outcome$
 DECLARE
     outcome text;
 BEGIN
     IF userEmail NOT IN (SELECT email FROM utente) THEN
-        outcome = "wrong email";
-    ELSIF userPassword <> (SELECT userPassword FROM utente WHERE email = userEmail) THEN
-        outcome = "wrong password";
+        outcome = 'wrong email';
+    ELSIF userPassword <> (SELECT "password" FROM utente WHERE email = userEmail) THEN
+        outcome = 'wrong password';
     ELSE
         SELECT tipologia INTO outcome
         FROM utente
@@ -107,7 +107,7 @@ END;
 $outcome$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION visualizza_lista_issue()
-RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(50), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -118,7 +118,7 @@ BEGIN
 END; $$;
 
 CREATE OR REPLACE FUNCTION visualizza_archivio_bug()
-RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(50), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -129,7 +129,7 @@ BEGIN
 END; $$;
 
 CREATE OR REPLACE FUNCTION visualizza_dettagli_issue(idIssue INT)
-RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(50), descrizioneIssue VARCHAR(2000), tipologiaIssue IssueType, prioritaIssue IssuePriority,  statoIssue IssueStatus, immagineIssue VARCHAR(200))
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), descrizioneIssue VARCHAR(2000), tipologiaIssue IssueType, prioritaIssue IssuePriority,  statoIssue IssueStatus, immagineIssue VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -161,4 +161,4 @@ AFTER INSERT ON assegnazione
 FOR EACH ROW
 EXECUTE FUNCTION controlla_stato_issue_function();
 
-CALL crea_utente('gianni@company.net', '0000', 'admin');
+CALL crea_utente('a', '[B@4d95d2a2', 'admin');
