@@ -17,11 +17,11 @@
    </Label>
    <Separator prefWidth="200.0" />
    <Label text="Email:" />
-   <TextField prefHeight="25.0" prefWidth="255.0" />
+   <TextField fx:id="emailField" prefHeight="25.0" prefWidth="255.0" />
    <Label text="PLACEHOLDER" />
    <Separator prefHeight="59.0" prefWidth="260.0" />
    <Label text="Password:" />
-   <PasswordField />
+   <PasswordField fx:id="passwordField" />
    <Label text="PLACEHOLDER" />
    <Separator prefHeight="139.0" prefWidth="260.0" />
     <Button onAction="#loginButtonPressed" text="Login" />

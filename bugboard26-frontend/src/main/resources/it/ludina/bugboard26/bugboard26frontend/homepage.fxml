@@ -19,7 +19,7 @@
           <Font size="22.0" />
         </font>
     </Button>
-    <Button layoutX="14.0" layoutY="222.0" mnemonicParsing="false" onAction="#showCreateUser" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Crea nuova&#10;Utenza" textAlignment="CENTER">
+    <Button fx:id="createUserButton" layoutX="14.0" layoutY="222.0" mnemonicParsing="false" onAction="#showCreateUser" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Crea nuova&#10;Utenza" textAlignment="CENTER">
         <font>
           <Font size="22.0" />
         </font>

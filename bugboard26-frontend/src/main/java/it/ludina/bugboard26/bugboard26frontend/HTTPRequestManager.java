@@ -1,5 +1,6 @@
 package it.ludina.bugboard26.bugboard26frontend;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -8,7 +9,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.security.auth.login.LoginException;
 
 public class HTTPRequestManager {
     private static final HttpClient client = HttpClient.newHttpClient();
@@ -17,7 +22,7 @@ public class HTTPRequestManager {
     static ObjectMapper objectMapper = new ObjectMapper();
 
 
-    public static int login(String email, String password){
+    public static String login(String email, String password) throws LoginException{
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "authentication/" +"/"))
                 .header("Content-Type", "application/json")
@@ -28,10 +33,13 @@ public class HTTPRequestManager {
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if(response.statusCode() == 404 || response.statusCode() == 403) throw new LoginException();
+            Map<String, String> map = objectMapper.readValue(response.body(), new TypeReference<>() {});
+            token = map.get("token");
+            return map.get("type");
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return 0; //da modificare
     }
 
 

@@ -32,4 +32,22 @@ public class WindowManager {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
     }
+
+
+    public static void openHomepage(String userType) {
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource("homepage.fxml"));
+        Scene scene;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        HomepageController controller = fxmlLoader.getController();
+        controller.init(userType);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Bugboard26");
+        stage.setScene(scene);
+        stage.show();
+    }
 }

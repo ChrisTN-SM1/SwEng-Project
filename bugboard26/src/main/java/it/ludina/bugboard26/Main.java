@@ -40,7 +40,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
         final HttpServer server = startServer();
-        LOGGER.info("Jersey app started with endpoints available at " + BASE_URI + "Hit Ctrl-C to stop it...");
+        LOGGER.info("Jersey app started with endpoints available at " + BASE_URI + "\nHit Ctrl-C to stop it...");
         System.in.read();
         server.shutdownNow();
     }
