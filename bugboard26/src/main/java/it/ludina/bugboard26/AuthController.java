@@ -57,21 +57,16 @@ public class AuthController {
     public Response login(Utente user){
         try {
             String result = dao.login(user);
-            switch (result) {
-                case "wrong email":
-                    return Response.status(Response.Status.NOT_FOUND).build();
-                case "wrong password":
-                    return Response.status(Response.Status.FORBIDDEN).build();
-                default:
-                    String token = createJWT(user.getEmail(), TimeUnit.HOURS.toMillis(8));
-                    String entity = "{\"userType\":\"" + result + "\"," +
-                    "\"token\":\"" + token + "\"}";
-                    return Response.status(Response.Status.OK)
-                    .entity(entity)
-                    .build();
-            }
+            if(result.equals("invalid"))
+                return Response.status(Response.Status.NOT_FOUND).build();
+
+            String token = createJWT(user.getEmail(), TimeUnit.HOURS.toMillis(8));
+            String entity = "{" +
+                                "\"userType\":\"" + result + "\"," +
+                                "\"token\":\"" + token + "\""+
+                            "}";
+            return Response.status(Response.Status.OK).entity(entity).build();
         } catch (SQLException e) {
-            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

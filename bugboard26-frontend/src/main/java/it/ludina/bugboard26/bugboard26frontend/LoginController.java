@@ -13,8 +13,6 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    @FXML
-
     public void loginButtonPressed(ActionEvent event) {
         String email = emailField.getText();
         String password = passwordField.getText();

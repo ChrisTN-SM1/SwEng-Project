@@ -1,3 +1,6 @@
+--Extensions
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
 --Enumerations
 
 CREATE TYPE UserType AS ENUM ('normale', 'admin');
@@ -35,7 +38,7 @@ CREATE OR REPLACE PROCEDURE crea_utente(newEmail VARCHAR(200), newPass VARCHAR(2
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    INSERT INTO utente(email, "password", tipologia) VALUES (newEmail, newPass, CAST("type" as UserType));
+    INSERT INTO utente(email, "password", tipologia) VALUES (newEmail, crypt(newPass, gen_salt('bf')), CAST("type" as UserType));
 END; $$;
 
 CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(200), newDesc VARCHAR(2000), "type" VARCHAR(200), priority VARCHAR(200), image VARCHAR(200))
@@ -93,14 +96,12 @@ RETURNS text AS $outcome$
 DECLARE
     outcome text;
 BEGIN
-    IF userEmail NOT IN (SELECT email FROM utente) THEN
-        outcome = 'wrong email';
-    ELSIF userPassword <> (SELECT "password" FROM utente WHERE email = userEmail) THEN
-        outcome = 'wrong password';
-    ELSE
+    IF (SELECT crypt(userPassword, "password") = "password" FROM utente where email = userEmail) THEN
         SELECT tipologia INTO outcome
         FROM utente
         WHERE email = userEmail;
+    ELSE
+        outcome = 'invalid';
     END IF;
     RETURN outcome;
 END;
@@ -148,12 +149,12 @@ AS $$
 BEGIN
     IF (SELECT stato FROM assegnazione JOIN issue
         ON assegnazione.idIssue = issue."id"
-        WHERE issue."id" = new.idIssue;) LIKE 'todo' THEN
+        WHERE issue."id" = new.idIssue) LIKE 'todo' THEN
         UPDATE issue
         SET stato = 'assegnato'
         WHERE "id" = new."id";
     END IF;
-    RETURN;
+    RETURN NEW;
 END; $$;
 
 CREATE or REPLACE TRIGGER controlla_stato_issue
@@ -161,4 +162,5 @@ AFTER INSERT ON assegnazione
 FOR EACH ROW
 EXECUTE FUNCTION controlla_stato_issue_function();
 
-CALL crea_utente('a', '[B@4d95d2a2', 'admin');
+--Popolamento
+CALL crea_utente('a', '0000', 'admin');

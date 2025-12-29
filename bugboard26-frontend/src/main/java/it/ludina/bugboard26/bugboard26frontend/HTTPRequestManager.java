@@ -31,7 +31,7 @@ public class HTTPRequestManager {
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if(response.statusCode() == 404 || response.statusCode() == 403) throw new LoginException();
+            if(response.statusCode() == 404) throw new LoginException();
             Type mapType = new TypeToken<HashMap<String, String>>() {}.getType();
             HashMap<String, String > map = gson.fromJson(response.body(), mapType);
             Session currentSession = Session.getInstance();
