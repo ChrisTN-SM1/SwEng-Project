@@ -64,7 +64,7 @@ public class HTTPRequestManager {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/setarchived/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + Session.getInstance().getToken())
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .PUT(HttpRequest.BodyPublishers.ofString("{\"idIssue\":" + issueId + "}"))
                 .build();
         try {
@@ -79,7 +79,7 @@ public class HTTPRequestManager {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/" + issueType.toLowerCase() +"/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .POST(HttpRequest.BodyPublishers.ofString
                         ("{\"title\":\"" + title + "\"," +
                                 "\"description\":\"" + description + "\"," +
@@ -98,7 +98,7 @@ public class HTTPRequestManager {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "user/" + userType.toLowerCase() +"/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .POST(HttpRequest.BodyPublishers.ofString
                         ("{\"email\":\"" + email + "\"," +
                                 "\"password\":\"" + password + "\"}"))
@@ -115,7 +115,7 @@ public class HTTPRequestManager {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/list/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .GET()
                 .build();
         return getIssueTypeList(request);
@@ -126,7 +126,7 @@ public class HTTPRequestManager {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/archive/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .GET()
                 .build();
         return getIssueTypeList(request);
@@ -149,7 +149,7 @@ public class HTTPRequestManager {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/assignedto/" + issueId + "/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .GET()
                 .build();
 
@@ -161,7 +161,7 @@ public class HTTPRequestManager {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/notassignedto/" + issueId + "/"))
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .GET()
                 .build();
 

@@ -61,7 +61,6 @@ public class AuthController {
         }
     }
 
-    @RequireJWTAuthentication
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
