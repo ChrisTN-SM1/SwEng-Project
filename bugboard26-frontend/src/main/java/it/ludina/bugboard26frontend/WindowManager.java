@@ -1,0 +1,37 @@
+package it.ludina.bugboard26frontend;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class WindowManager {
+
+
+    public static FXMLLoader openWindow(String nomeLayout){
+        FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource(nomeLayout));
+        Scene scene;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("Bugboard26");
+        stage.setScene(scene);
+        stage.show();
+        return fxmlLoader;
+    }
+
+
+    public static void closeWindow(ActionEvent event){
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+}

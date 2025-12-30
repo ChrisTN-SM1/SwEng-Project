@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-public abstract class Issue {
+public class Issue {
     @Getter @Setter protected int idIssue;
     @Getter @Setter protected String title;
     @Getter @Setter protected String description;
@@ -18,9 +18,13 @@ public abstract class Issue {
     @Getter @Setter protected String image;
 
 
-    protected Issue(){}
+    public Issue(){}
+
+    public Issue(int idIssue){
+        this.idIssue = idIssue;
+    }
     //Costruttore per il caricamento delle issue dal database
-    protected Issue(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato, String urlImmagine){
+    public Issue(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato, String urlImmagine){
         this.idIssue = idIssue;
         this.title = titolo;
         this.description = descrizione;
@@ -30,7 +34,7 @@ public abstract class Issue {
     }
 
     //Costruttore per la creazione di nuove issue
-    protected Issue(String titolo, String descrizione, PrioritaEnum priorita, String urlImmagine){
+    public Issue(String titolo, String descrizione, PrioritaEnum priorita, String urlImmagine){
         this.title = titolo;
         this.description = descrizione;
         this.priority = priorita;
@@ -42,5 +46,7 @@ public abstract class Issue {
         else this.priority = priorita;
     }
 
-    public abstract String getIssueType();
+    public String getIssueType(){
+        return "";
+    }
 }  

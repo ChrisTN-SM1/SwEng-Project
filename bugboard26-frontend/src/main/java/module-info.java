@@ -1,4 +1,4 @@
-module it.ludina.bugboard26.bugboard26frontend {
+module it.ludina.bugboard26frontend {
     requires transitive javafx.base;
     requires transitive javafx.graphics;
     requires transitive javafx.controls;
@@ -13,12 +13,13 @@ module it.ludina.bugboard26.bugboard26frontend {
     requires static lombok;
     requires java.net.http;
     requires com.google.gson;
+    requires java.desktop;
 
-    opens it.ludina.bugboard26.bugboard26frontend to javafx.fxml, com.google.gson;
-    exports it.ludina.bugboard26.bugboard26frontend;
-    exports it.ludina.bugboard26.bugboard26frontend.IssueDetails;
-    opens it.ludina.bugboard26.bugboard26frontend.IssueDetails to javafx.fxml;
-    exports it.ludina.bugboard26.bugboard26frontend.ErrorsController;
-    opens it.ludina.bugboard26.bugboard26frontend.ErrorsController to javafx.fxml;
+    opens it.ludina.bugboard26frontend to javafx.fxml, com.google.gson;
+    exports it.ludina.bugboard26frontend;
+    exports it.ludina.bugboard26frontend.IssueDetails;
+    opens it.ludina.bugboard26frontend.IssueDetails to javafx.fxml;
+    exports it.ludina.bugboard26frontend.ErrorsController;
+    opens it.ludina.bugboard26frontend.ErrorsController to javafx.fxml;
 
 }

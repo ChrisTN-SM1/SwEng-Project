@@ -98,9 +98,9 @@ public class IssueController {
     @Path("setarchived")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response setArchived(int id) {
+    public Response setArchived(Issue issue) {
         try {
-            dao.setArchived(id);
+            dao.setArchived(issue.getIdIssue());
             return Response.status(Response.Status.OK).build();
         } catch (SQLException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -109,10 +109,10 @@ public class IssueController {
 
     @Path("setcompleted")
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response setCompleted(int id) {
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response setCompleted(Issue issue) {
         try {
-            dao.setCompleted(id);
+            dao.setCompleted(issue.getIdIssue());
             return Response.status(Response.Status.OK).build();
         } catch (SQLException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -129,6 +129,32 @@ public class IssueController {
         } catch (SQLException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    @Path("assignedto/{idIssue}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getAssignedTo(@PathParam("idIssue")int idIssue) {
+
+        try {
+            return dao.getAssignedTo(idIssue);
+        } catch (SQLException e) {
+            return Collections.emptyList();
+        }
+
+    }
+
+        @Path("notassignedto/{idIssue}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getNotAssignedTo(@PathParam("idIssue")int idIssue) {
+
+        try {
+            return dao.getNotAssignedTo(idIssue);
+        } catch (SQLException e) {
+            return Collections.emptyList();
+        }
+
     }
 
 }

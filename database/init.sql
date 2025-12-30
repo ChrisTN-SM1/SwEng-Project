@@ -108,36 +108,49 @@ END;
 $outcome$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION visualizza_lista_issue()
-RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), descrizioneIssue VARCHAR(2000), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
 LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT "id", titolo, tipologia, priorita, stato
+        SELECT "id", titolo, descrizione, tipologia, priorita, stato
         FROM issue
         WHERE stato <> 'archiviato';
 END; $$;
 
 CREATE OR REPLACE FUNCTION visualizza_archivio_bug()
-RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
+RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), descrizioneIssue VARCHAR(2000), tipologiaIssue IssueType, prioritaIssue IssuePriority, statoIssue IssueStatus)
 LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT "id", titolo, tipologia, priorita, stato
+        SELECT "id", titolo, descrizione, tipologia, priorita, stato
         FROM issue
         WHERE stato = 'archiviato';
 END; $$;
 
-CREATE OR REPLACE FUNCTION visualizza_dettagli_issue(idIssue INT)
-RETURNS TABLE(identificatoreIssue INT, titoloIssue VARCHAR(200), descrizioneIssue VARCHAR(2000), tipologiaIssue IssueType, prioritaIssue IssuePriority,  statoIssue IssueStatus, immagineIssue VARCHAR(200))
+CREATE OR REPLACE FUNCTION visualizza_responsabili_issue(idIssueSelezionata INT)
+RETURNS TABLE(emailResponsabile VARCHAR(200))
 LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT "id", titolo, descrizione, tipologia, priorita, stato, immagine
-        FROM issue
-        WHERE "id" = idIssue;
+        SELECT emailUtente
+        FROM assegnazione
+        WHERE idIssue = idIssueSelezionata;
+END; $$;
+
+CREATE OR REPLACE FUNCTION  visualizza_non_responsabili_issue(idIssueSelezionata INT)
+RETURNS TABLE(emailResponsabile VARCHAR(200))
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+        SELECT utente.email
+        FROM utente
+        WHERE utente.email NOT IN (SELECT emailUtente
+                                    FROM assegnazione
+                                    WHERE idIssue = idIssueSelezionata);
 END; $$;
 
 --Trigger e Trigger Functions

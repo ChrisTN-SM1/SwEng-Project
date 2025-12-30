@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26frontend.IssueDetails.DetailIssueController">
+   <Label layoutX="106.0" layoutY="34.0" text="ISSUE NUMERO">
+      <font>
+         <Font size="42.0" />
+      </font>
+   </Label>
+   <Label layoutX="106.0" layoutY="127.0" text="Titolo:" />
+   <Label layoutX="107.0" layoutY="165.0" text="Descrizione:" />
+   <Label layoutX="107.0" layoutY="300.0" text="Tipologia:" />
+   <Label layoutX="106.0" layoutY="346.0" text="Priorità:" />
+   <Label layoutX="106.0" layoutY="395.0" text="Stato:" />
+   <Label layoutX="107.0" layoutY="488.0" text="Immagine:" />
+   <Label fx:id="idLabel" layoutX="414.0" layoutY="34.0" prefHeight="17.0" prefWidth="166.0" text="Label">
+      <font>
+         <Font size="42.0" />
+      </font>
+   </Label>
+   <Label fx:id="titleLabel" layoutX="258.0" layoutY="127.0" text="titleLabel" />
+   <Label fx:id="descriptionLabel" layoutX="258.0" layoutY="165.0" text="descriptionLabel" />
+   <Label fx:id="issueTypeLabel" layoutX="258.0" layoutY="300.0" text="issueTypeLabel" />
+   <Label fx:id="priorityLabel" layoutX="258.0" layoutY="346.0" text="priorityLabel" />
+   <Button layoutX="253.0" layoutY="484.0" mnemonicParsing="false" onAction="#showViewImage" style="-fx-background-color: lightskyblue" text="Visualizza immagine" />
+   <Label fx:id="stateLabel" layoutX="258.0" layoutY="395.0" text="stateLabel" />
+   <Label layoutX="106.0" layoutY="444.0" text="Responsabili:" />
+   <Label fx:id="assignedToLabel" layoutX="258.0" layoutY="444.0" text="assignedToLabel" />
+   <Button fx:id="setStateCompletedButton" layoutX="765.0" layoutY="104.0" mnemonicParsing="false" onAction="#showSetStateCompleted" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Imposta stato&#10;completato" textAlignment="CENTER">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Button>
+   <Button fx:id="archiveButton" layoutX="765.0" layoutY="346.0" mnemonicParsing="false" onAction="#showArchiveBug" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Archivia bug">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Button>
+   <Button fx:id="assignIssueButton" layoutX="765.0" layoutY="226.0" mnemonicParsing="false" onAction="#showAssignIssue" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Assegna issue">
+      <font>
+         <Font size="22.0" />
+      </font>
+   </Button>
+</AnchorPane>

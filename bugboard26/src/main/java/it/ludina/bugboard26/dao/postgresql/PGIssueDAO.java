@@ -26,19 +26,20 @@ public class PGIssueDAO implements IssueDAO{
 
         List<Issue> result = new ArrayList<>();
 
-        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_lista_issue()");
+        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_lista_issue()");
 
         rs = ps.executeQuery();
 
         while (rs.next()) {
 
             int id = rs.getInt(1);
-            String titolo = rs.getString(2);
-            String tipologia = rs.getString(3);
-            PrioritaEnum priorita = PrioritaEnum.valueOf(rs.getString(4).toUpperCase());
-            StatoEnum stato = StatoEnum.valueOf(rs.getString(5).toUpperCase());
+            String title = rs.getString(2);
+            String description = rs.getString(3);
+            String issueType = rs.getString(4);
+            PrioritaEnum priority = PrioritaEnum.valueOf(rs.getString(5).toUpperCase());
+            StatoEnum state = StatoEnum.valueOf(rs.getString(6).toUpperCase());
 
-            Issue issue = IssueFactory.create(id, titolo, tipologia, priorita, stato);
+            Issue issue = IssueFactory.create(id, title, description, issueType, priority, state);
 
             result.add(issue);
         }
@@ -53,19 +54,20 @@ public class PGIssueDAO implements IssueDAO{
 
         List<Issue> result = new ArrayList<>();
 
-        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_archivio_bug()");
+        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_archivio_bug()");
 
         rs = ps.executeQuery();
 
         while (rs.next()) {
 
             int id = rs.getInt(1);
-            String titolo = rs.getString(2);
-            String tipologia = rs.getString(3);
-            PrioritaEnum priorita = PrioritaEnum.valueOf(rs.getString(4).toUpperCase());
-            StatoEnum stato = StatoEnum.valueOf(rs.getString(5).toUpperCase());
+            String title = rs.getString(2);
+            String description = rs.getString(3);
+            String issueType = rs.getString(4);
+            PrioritaEnum priority = PrioritaEnum.valueOf(rs.getString(5).toUpperCase());
+            StatoEnum state = StatoEnum.valueOf(rs.getString(6).toUpperCase());
 
-            Issue issue = IssueFactory.create(id, titolo, tipologia, priorita, stato);
+            Issue issue = IssueFactory.create(id, title, description, issueType, priority, state);
 
             result.add(issue);
         }
@@ -92,11 +94,11 @@ public class PGIssueDAO implements IssueDAO{
     }
 
     @Override
-    public void setArchived(int id) throws SQLException {
+    public void setArchived(int idIssue) throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
         ps = conn.prepareStatement("CALL imposta_bug_archiviato(?)");
-        ps.setInt(1, id);
+        ps.setInt(1, idIssue);
 
         ps.execute();
 
@@ -104,11 +106,11 @@ public class PGIssueDAO implements IssueDAO{
     }
 
     @Override
-    public void setCompleted(int id) throws SQLException {
+    public void setCompleted(int idIssue) throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
         ps = conn.prepareStatement("CALL imposta_issue_completata(?)");
-        ps.setInt(1, id);
+        ps.setInt(1, idIssue);
 
         ps.execute();
 
@@ -116,11 +118,11 @@ public class PGIssueDAO implements IssueDAO{
     }
 
     @Override
-    public void assignIssue(int id, String[] users) throws SQLException {
+    public void assignIssue(int idIssue, String[] users) throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
         ps = conn.prepareStatement("CALL assegna_issue(?, ?)");
-        ps.setInt(1, id);
+        ps.setInt(1, idIssue);
 
         for (String user : users) {
             ps.setString(2, user);
@@ -131,6 +133,41 @@ public class PGIssueDAO implements IssueDAO{
         ps.executeBatch();
 
         conn.close();
+    }
+
+    @Override
+    public List<String> getAssignedTo(int idIssue) throws SQLException {
+        List<String> results = new ArrayList<>();
+        
+        conn = PostgresConnection.getInstance().getConnection();
+        ps = conn.prepareStatement("SELECT emailResponsabile from visualizza_responsabili_issue(?)");
+        ps.setInt(1, idIssue);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            results.add(rs.getString(1));
+        }
+
+        conn.close();
+        return results;
+
+    }
+
+    @Override
+    public List<String> getNotAssignedTo(int idIssue) throws SQLException {
+        List<String> results = new ArrayList<>();
+        
+        conn = PostgresConnection.getInstance().getConnection();
+        ps = conn.prepareStatement("SELECT emailResponsabile from visualizza_non_responsabili_issue(?)");
+        ps.setInt(1, idIssue);
+        rs = ps.executeQuery();
+
+        while (rs.next()) {
+            results.add(rs.getString(1));
+        }
+
+        conn.close();
+        return results;
     }
 
 }

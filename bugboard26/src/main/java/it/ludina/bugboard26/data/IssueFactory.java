@@ -12,20 +12,20 @@ public class IssueFactory {
     private IssueFactory(){
 
     }
-    public static Issue create(int id, String titolo, String tipologia, PrioritaEnum priorita, StatoEnum stato) {
+    public static Issue create(int id, String title, String description, String issueType, PrioritaEnum priority, StatoEnum state) {
         Issue i = null;
-        switch (tipologia) {
+        switch (issueType) {
             case "bug":
-                i = new IssueBug(id, titolo, "", priorita, stato, "");
+                i = new IssueBug(id, title, description, priority, state, "");
                 break;
             case "documentation":
-                i = new IssueDocumentation(id, titolo, "", priorita, stato, "");
+                i = new IssueDocumentation(id, title, description, priority, state, "");
                 break;
             case "feature":
-                i = new IssueFeature(id, titolo, "", priorita, stato, "");
+                i = new IssueFeature(id, title, description, priority, state, "");
                 break;
             case "question":
-                i = new IssueQuestion(id, titolo, "", priorita, stato, "");
+                i = new IssueQuestion(id, title, description, priority, state, "");
                 break;
             default:
                 break;
