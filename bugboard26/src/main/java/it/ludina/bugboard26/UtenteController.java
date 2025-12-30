@@ -6,6 +6,7 @@ import it.ludina.bugboard26.dao.UtenteDAO;
 import it.ludina.bugboard26.dao.postgresql.PGUtenteDAO;
 import it.ludina.bugboard26.data.utente.UtenteAmministratore;
 import it.ludina.bugboard26.data.utente.UtenteNormale;
+import it.ludina.bugboard26.filters.RequireJWTAuthentication;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -17,6 +18,7 @@ public class UtenteController {
 
 	UtenteDAO dao = new PGUtenteDAO();
 
+	@RequireJWTAuthentication
 	@Path("normal")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -30,6 +32,7 @@ public class UtenteController {
         }
 	}
 
+	@RequireJWTAuthentication
 	@Path("admin")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)

@@ -11,7 +11,7 @@ import it.ludina.bugboard26.data.issue.IssueBug;
 import it.ludina.bugboard26.data.issue.IssueDocumentation;
 import it.ludina.bugboard26.data.issue.IssueFeature;
 import it.ludina.bugboard26.data.issue.IssueQuestion;
-
+import it.ludina.bugboard26.filters.RequireJWTAuthentication;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -21,6 +21,7 @@ public class IssueController {
 
     IssueDAO dao = new PGIssueDAO();
 
+    @RequireJWTAuthentication
     @Path("list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -34,6 +35,7 @@ public class IssueController {
 
     }
 
+    @RequireJWTAuthentication
     @Path("archive")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,6 +49,7 @@ public class IssueController {
 
     }
 
+    @RequireJWTAuthentication
     @Path("bug")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -59,6 +62,7 @@ public class IssueController {
         }
     }
 
+    @RequireJWTAuthentication
     @Path("documentation")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -71,6 +75,7 @@ public class IssueController {
         }
     }
 
+    @RequireJWTAuthentication
     @Path("feature")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -83,6 +88,7 @@ public class IssueController {
         }
     }
 
+    @RequireJWTAuthentication
     @Path("question")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -95,6 +101,7 @@ public class IssueController {
         }
     }
 
+    @RequireJWTAuthentication
     @Path("setarchived")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -107,6 +114,7 @@ public class IssueController {
         }
     }
 
+    @RequireJWTAuthentication
     @Path("setcompleted")
     @PUT
     @Consumes(MediaType.TEXT_PLAIN)
@@ -119,6 +127,7 @@ public class IssueController {
         }
     }
 
+    @RequireJWTAuthentication
     @Path("assign")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -131,6 +140,7 @@ public class IssueController {
         }
     }
 
+    @RequireJWTAuthentication
     @Path("assignedto/{idIssue}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -144,7 +154,8 @@ public class IssueController {
 
     }
 
-        @Path("notassignedto/{idIssue}")
+    @RequireJWTAuthentication
+    @Path("notassignedto/{idIssue}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getNotAssignedTo(@PathParam("idIssue")int idIssue) {

@@ -15,6 +15,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import it.ludina.bugboard26.dao.AuthenticationDAO;
 import it.ludina.bugboard26.dao.postgresql.PGAuthenticationDAO;
 import it.ludina.bugboard26.data.utente.Utente;
+import it.ludina.bugboard26.filters.RequireJWTAuthentication;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -51,6 +52,16 @@ public class AuthController {
 
     }
 
+    public static boolean validateToken(String token){
+        try {
+            verifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+    }
+
+    @RequireJWTAuthentication
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
