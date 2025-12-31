@@ -12,14 +12,10 @@ public interface IssueDAO {
 
     void add(Issue issue) throws SQLException;
 
-    void setArchived(int idIssue) throws SQLException;
+    void setArchived(Issue issue) throws SQLException;
 
-    void setCompleted(int idIssue) throws SQLException;
+    void setCompleted(Issue issue) throws SQLException;
 
-    void assignIssue(int idIssue, String[] users) throws SQLException;
-
-    List<String> getAssignedTo(int idIssue) throws SQLException;
-
-    List<String> getNotAssignedTo(int idIssue) throws SQLException;
+    public String getImage(int idIssue) throws SQLException;
 
 }

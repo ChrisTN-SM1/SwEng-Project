@@ -15,7 +15,6 @@ import io.github.cdimascio.dotenv.Dotenv;
 import it.ludina.bugboard26.dao.AuthenticationDAO;
 import it.ludina.bugboard26.dao.postgresql.PGAuthenticationDAO;
 import it.ludina.bugboard26.data.utente.Utente;
-import it.ludina.bugboard26.filters.RequireJWTAuthentication;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;

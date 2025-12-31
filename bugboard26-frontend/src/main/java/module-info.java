@@ -14,6 +14,7 @@ module it.ludina.bugboard26frontend {
     requires java.net.http;
     requires com.google.gson;
     requires java.desktop;
+    requires org.apache.commons.io;
 
     opens it.ludina.bugboard26frontend to javafx.fxml, com.google.gson;
     exports it.ludina.bugboard26frontend;

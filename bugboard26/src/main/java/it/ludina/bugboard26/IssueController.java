@@ -58,6 +58,7 @@ public class IssueController {
             dao.add(bug);
             return Response.status(Response.Status.CREATED).build();
         } catch (SQLException e) {
+            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
@@ -107,7 +108,7 @@ public class IssueController {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response setArchived(Issue issue) {
         try {
-            dao.setArchived(issue.getIdIssue());
+            dao.setArchived(issue);
             return Response.status(Response.Status.OK).build();
         } catch (SQLException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -117,55 +118,26 @@ public class IssueController {
     @RequireJWTAuthentication
     @Path("setcompleted")
     @PUT
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response setCompleted(Issue issue) {
         try {
-            dao.setCompleted(issue.getIdIssue());
+            dao.setCompleted(issue);
             return Response.status(Response.Status.OK).build();
         } catch (SQLException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
 
-    @RequireJWTAuthentication
-    @Path("assign")
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response assignIssue(@QueryParam("id") int id, @QueryParam("users") String[] users) {
-        try {
-            dao.assignIssue(id, users);
-            return Response.status(Response.Status.OK).build();
-        } catch (SQLException e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
-    }
-
-    @RequireJWTAuthentication
-    @Path("assignedto/{idIssue}")
+    @Path("{idIssue}/getImage")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getAssignedTo(@PathParam("idIssue")int idIssue) {
-
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getImage(@PathParam("idIssue") int idIssue) {
         try {
-            return dao.getAssignedTo(idIssue);
+            return dao.getImage(idIssue);
         } catch (SQLException e) {
-            return Collections.emptyList();
+            e.printStackTrace();
+            return "";
         }
-
-    }
-
-    @RequireJWTAuthentication
-    @Path("notassignedto/{idIssue}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getNotAssignedTo(@PathParam("idIssue")int idIssue) {
-
-        try {
-            return dao.getNotAssignedTo(idIssue);
-        } catch (SQLException e) {
-            return Collections.emptyList();
-        }
-
     }
 
 }

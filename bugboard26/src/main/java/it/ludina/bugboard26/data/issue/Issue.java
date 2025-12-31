@@ -24,13 +24,13 @@ public class Issue {
         this.idIssue = idIssue;
     }
     //Costruttore per il caricamento delle issue dal database
-    public Issue(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato, String urlImmagine){
+    public Issue(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato, String immagine){
         this.idIssue = idIssue;
         this.title = titolo;
         this.description = descrizione;
         this.priority = priorita;
         this.state = stato;
-        this.image = urlImmagine;
+        this.image = immagine;
     }
 
     //Costruttore per la creazione di nuove issue

@@ -14,7 +14,12 @@ import it.ludina.bugboard26.data.issue.Issue;
 import it.ludina.bugboard26.data.issue.enums.PrioritaEnum;
 import it.ludina.bugboard26.data.issue.enums.StatoEnum;
 
-public class PGIssueDAO implements IssueDAO{
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+public class PGIssueDAO implements IssueDAO {
 
     private Connection conn = null;
     private PreparedStatement ps;
@@ -38,7 +43,7 @@ public class PGIssueDAO implements IssueDAO{
             String issueType = rs.getString(4);
             PrioritaEnum priority = PrioritaEnum.valueOf(rs.getString(5).toUpperCase());
             StatoEnum state = StatoEnum.valueOf(rs.getString(6).toUpperCase());
-
+            
             Issue issue = IssueFactory.create(id, title, description, issueType, priority, state);
 
             result.add(issue);
@@ -54,7 +59,8 @@ public class PGIssueDAO implements IssueDAO{
 
         List<Issue> result = new ArrayList<>();
 
-        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_archivio_bug()");
+        ps = conn.prepareStatement(
+                "SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_archivio_bug()");
 
         rs = ps.executeQuery();
 
@@ -82,11 +88,13 @@ public class PGIssueDAO implements IssueDAO{
 
         ps = conn.prepareStatement("CALL crea_issue(?,?,?,?,?)");
 
+        InputStream stream = new ByteArrayInputStream(issue.getImage().getBytes());
+
         ps.setString(1, issue.getTitle());
         ps.setString(2, issue.getDescription());
         ps.setString(3, issue.getIssueType());
         ps.setString(4, issue.getPriority().toString().toLowerCase());
-        ps.setString(5, issue.getImage());
+        ps.setBinaryStream(5, stream, issue.getImage().length());
 
         ps.execute();
 
@@ -94,11 +102,11 @@ public class PGIssueDAO implements IssueDAO{
     }
 
     @Override
-    public void setArchived(int idIssue) throws SQLException {
+    public void setArchived(Issue issue) throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
         ps = conn.prepareStatement("CALL imposta_bug_archiviato(?)");
-        ps.setInt(1, idIssue);
+        ps.setInt(1, issue.getIdIssue());
 
         ps.execute();
 
@@ -106,68 +114,42 @@ public class PGIssueDAO implements IssueDAO{
     }
 
     @Override
-    public void setCompleted(int idIssue) throws SQLException {
+    public void setCompleted(Issue issue) throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
         ps = conn.prepareStatement("CALL imposta_issue_completata(?)");
-        ps.setInt(1, idIssue);
+        ps.setInt(1, issue.getIdIssue());
 
         ps.execute();
 
         conn.close();
     }
 
-    @Override
-    public void assignIssue(int idIssue, String[] users) throws SQLException {
+    public String getImage(int idIssue) throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
-
-        ps = conn.prepareStatement("CALL assegna_issue(?, ?)");
+        ps = conn.prepareStatement("SELECT immagineIssue FROM ottieni_immagine_issue(?)");
         ps.setInt(1, idIssue);
 
-        for (String user : users) {
-            ps.setString(2, user);
-            ps.addBatch();
-            
-        }
-        
-        ps.executeBatch();
-
-        conn.close();
-    }
-
-    @Override
-    public List<String> getAssignedTo(int idIssue) throws SQLException {
-        List<String> results = new ArrayList<>();
-        
-        conn = PostgresConnection.getInstance().getConnection();
-        ps = conn.prepareStatement("SELECT emailResponsabile from visualizza_responsabili_issue(?)");
-        ps.setInt(1, idIssue);
         rs = ps.executeQuery();
 
-        while (rs.next()) {
-            results.add(rs.getString(1));
+        rs.next();
+
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+
+        InputStream stream = rs.getBinaryStream(1);
+
+        try {
+            for (int length; (length = stream.read(buffer)) != -1; ) {
+                result.write(buffer, 0, length);
+            }
+        } catch (IOException e) {
+            return "";
         }
 
         conn.close();
-        return results;
 
-    }
-
-    @Override
-    public List<String> getNotAssignedTo(int idIssue) throws SQLException {
-        List<String> results = new ArrayList<>();
-        
-        conn = PostgresConnection.getInstance().getConnection();
-        ps = conn.prepareStatement("SELECT emailResponsabile from visualizza_non_responsabili_issue(?)");
-        ps.setInt(1, idIssue);
-        rs = ps.executeQuery();
-
-        while (rs.next()) {
-            results.add(rs.getString(1));
-        }
-
-        conn.close();
-        return results;
+        return result.toString();
     }
 
 }

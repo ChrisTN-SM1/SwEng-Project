@@ -2,7 +2,9 @@ package it.ludina.bugboard26frontend;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -10,6 +12,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,7 +53,7 @@ public class HTTPRequestManager {
                 .uri(URI.create(BASE_URI + "issues/setcompleted/"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + Session.getInstance().getToken())
-                .PUT(HttpRequest.BodyPublishers.ofString("{\"id\":\"" + issueId + "\"}"))
+                .PUT(HttpRequest.BodyPublishers.ofString("{\"idIssue\":" + issueId + "}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -75,7 +78,20 @@ public class HTTPRequestManager {
     }
 
 
-    public static void createIssue(String title, String description, String issueType, String priority, String imageURL){
+    public static void createIssue(String title, String description, String issueType, String priority, File image){
+
+        String encodedFile;
+
+        if(image == null) encodedFile = "";
+        else {
+            byte[] imageBytes = null;
+            try {
+                imageBytes = FileUtils.readFileToByteArray(image);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            encodedFile = Base64.getEncoder().encodeToString(imageBytes);
+        }
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URI + "issues/" + issueType.toLowerCase() +"/"))
                 .header("Content-Type", "application/json")
@@ -84,7 +100,7 @@ public class HTTPRequestManager {
                         ("{\"title\":\"" + title + "\"," +
                                 "\"description\":\"" + description + "\"," +
                                 "\"priority\":\"" + priority.toUpperCase() + "\", " +
-                                "\"image\":\"" + imageURL + "\"}"))
+                                "\"image\":\"" + encodedFile + "\"}"))
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -147,7 +163,7 @@ public class HTTPRequestManager {
 
     public static List<String> getAssignedTo(int issueId){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issues/assignedto/" + issueId + "/"))
+                .uri(URI.create(BASE_URI + "assignment/assignedto/" + issueId + "/"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .GET()
@@ -159,7 +175,7 @@ public class HTTPRequestManager {
 
     public static List<String> getNotAssignedTo(int issueId){
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "issues/notassignedto/" + issueId + "/"))
+                .uri(URI.create(BASE_URI + "assignment/notassignedto/" + issueId + "/"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .GET()
@@ -178,5 +194,38 @@ public class HTTPRequestManager {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+
+    public static void assignIssue(int idIssue, List<String> selectedEmails) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URI + "assignment/assign/"))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
+                .POST(HttpRequest.BodyPublishers.ofString(
+                        "{\"idIssue\":" + idIssue + "," +
+                              "\"emails\":" + gson.toJson(selectedEmails.toArray()) + "}"
+                ))
+                .build();
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getIssueImage(int issueId){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(BASE_URI + "issues/" + issueId + "/getImage/"))
+                .header("Content-Type", "text/plain")
+                .header("Authorization", "Bearer " + Session.getInstance().getToken())
+                .GET()
+                .build();
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.body();
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

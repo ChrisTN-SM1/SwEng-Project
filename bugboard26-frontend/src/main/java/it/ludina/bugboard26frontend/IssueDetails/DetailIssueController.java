@@ -57,7 +57,7 @@ public class DetailIssueController {
         if(Session.getInstance().getUserType().equals("normale")){
             assignIssueButton.setVisible(false);
         }
-        if(!(assignedTo.contains(Session.getInstance().getUserEmail()))) {
+        if(!(assignedTo.contains(Session.getInstance().getUserEmail())) || issue.getState().equals("ARCHIVIATO")) {
             setStateCompletedButton.setVisible(false);
         }
     }
@@ -78,6 +78,7 @@ public class DetailIssueController {
         FXMLLoader fxmlloader = WindowManager.openWindow("issue-details/assign-issue.fxml");
         AssignIssueController controller = fxmlloader.getController();
         controller.setIdIssue(idIssue);
+        controller.getNotAssignedTo();
         controller.confermaButton.setOnAction(childEvent -> {
            WindowManager.closeWindow(event);
            controller.confermaButtonPressed(childEvent);
@@ -97,6 +98,9 @@ public class DetailIssueController {
 
 
     public void showViewImage(){
-        WindowManager.openWindow("issue-details/view-image.fxml");
+        FXMLLoader fxmlloader = WindowManager.openWindow("issue-details/view-image.fxml");
+        ViewImageController controller = fxmlloader.getController();
+        controller.setIdIssue(idIssue);
+        controller.getImage();
     }
 }

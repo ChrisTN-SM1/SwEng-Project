@@ -23,7 +23,7 @@ CREATE TABLE issue (
     tipologia IssueType,
     priorita IssuePriority DEFAULT 'non_specificata',
     stato IssueStatus DEFAULT 'todo',
-    immagine VARCHAR(200)
+    immagine BYTEA
 );
 
 CREATE TABLE assegnazione (
@@ -41,7 +41,7 @@ BEGIN
     INSERT INTO utente(email, "password", tipologia) VALUES (newEmail, crypt(newPass, gen_salt('bf')), CAST("type" as UserType));
 END; $$;
 
-CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(200), newDesc VARCHAR(2000), "type" VARCHAR(200), priority VARCHAR(200), image VARCHAR(200))
+CREATE OR REPLACE PROCEDURE crea_issue(newTitle VARCHAR(200), newDesc VARCHAR(2000), "type" VARCHAR(200), priority VARCHAR(200), image BYTEA)
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -73,21 +73,6 @@ BEGIN
     INSERT INTO assegnazione(idIssue, emailUtente) VALUES (newIdIssue, newEmailUtente);
 END; $$;
 
-CREATE OR REPLACE PROCEDURE elimina_issue(issueID INT)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    DELETE FROM issue
-    where "id" = issueID;
-END; $$;
-
-CREATE OR REPLACE PROCEDURE elimina_utente(userEmail VARCHAR(200))
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    DELETE FROM utente
-    WHERE email = userEmail;
-END; $$;
 
 --Functions
 
@@ -146,11 +131,20 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT utente.email
+        SELECT email
         FROM utente
-        WHERE utente.email NOT IN (SELECT emailUtente
-                                    FROM assegnazione
-                                    WHERE idIssue = idIssueSelezionata);
+        WHERE email NOT IN (SELECT * FROM visualizza_responsabili_issue(idIssueSelezionata));
+END; $$;
+
+CREATE OR REPLACE FUNCTION ottieni_immagine_issue(idIssueSelezionata INT)
+RETURNS TABLE(immagineIssue BYTEA)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+        SELECT immagine
+        FROM issue
+        WHERE "id" = idIssueSelezionata;
 END; $$;
 
 --Trigger e Trigger Functions
@@ -160,12 +154,12 @@ RETURNS TRIGGER
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    IF (SELECT stato FROM assegnazione JOIN issue
-        ON assegnazione.idIssue = issue."id"
-        WHERE issue."id" = new.idIssue) LIKE 'todo' THEN
+    IF 'todo' IN (SELECT stato
+        FROM assegnazione JOIN issue ON idIssue = "id"
+        WHERE "id" = new.idIssue) THEN
         UPDATE issue
         SET stato = 'assegnato'
-        WHERE "id" = new."id";
+        WHERE "id" = new.idIssue;
     END IF;
     RETURN NEW;
 END; $$;
