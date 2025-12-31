@@ -12,7 +12,9 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -23,18 +25,25 @@ public class ViewImageController {
     private AnchorPane anchorPane;
     private int idIssue;
 
+
     public void getImage() {
-        File file;
+        File file = new File("src/main/resources/images/Diana.jpeg");
         try {
-            file = File.createTempFile("trmp-", "-file");
             String encodedImage = HTTPRequestManager.getIssueImage(idIssue);
             byte[] decodedImage = Base64.getDecoder().decode(encodedImage);
-            FileUtils.writeByteArrayToFile(file, decodedImage);
+            if (decodedImage.length > 0) {
+                file = File.createTempFile("trmp-", "-file");
+                FileUtils.writeByteArrayToFile(file, decodedImage);
+
+            }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        Image image = new Image(file.toURI().toString(), 500, 500, true, true);
+        Image image;
+
+        image = new Image(file.toURI().toString(), 500, 500, true, true);
         imageView.setImage(image);
 
         anchorPane.getScene().getWindow().sizeToScene();

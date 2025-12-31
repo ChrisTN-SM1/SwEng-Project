@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.controlsfx.control.table.TableFilter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,5 +45,7 @@ public class IssueListController implements Initializable {
         viewColumn.setCellFactory(issueBooleanTableColumn -> new ViewDetailCell(issueTableView));
 
         issueTableView.setItems(list);
+
+        TableFilter<Issue> filter = TableFilter.forTableView(issueTableView).apply();
     }
 }
