@@ -3,15 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import org.kordamp.ikonli.javafx.*?>
 
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.ludina.bugboard26frontend.HomepageController">
-    <TabPane layoutX="204.0" layoutY="26.0" prefHeight="681.0" prefWidth="1057.0" tabClosingPolicy="UNAVAILABLE">
+    <TabPane layoutX="204.0" layoutY="26.0" prefHeight="622.0" prefWidth="1057.0" tabClosingPolicy="UNAVAILABLE">
         <Tab fx:id="issueListTab" text="Lista issue">
-            <fx:include source="issue-list.fxml"/>
+            <fx:include source="issue-list.fxml" />
         </Tab>
         <Tab fx:id="archiveTab" text="Archivio bug">
-            <fx:include source="archive.fxml"/>
+            <fx:include source="archive.fxml" />
         </Tab>
     </TabPane>
     <Button layoutX="14.0" layoutY="128.0" mnemonicParsing="false" onAction="#showCreateIssue" prefHeight="81.0" prefWidth="166.0" style="-fx-background-color: lightskyblue" text="Segnala Issue">
@@ -31,7 +31,8 @@
     </Label>
     <Button layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#reloadPage" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: orange">
         <graphic>
-            <FontIcon iconLiteral="mdi2r-reload"/>
+            <FontIcon iconLiteral="mdi2r-reload" />
         </graphic>
     </Button>
+   <Label layoutX="217.0" layoutY="648.0" text="*Visualizza filtri: click destro su colonna&#10;*Imposta ordine: click sinistro su colonna" />
 </AnchorPane>
