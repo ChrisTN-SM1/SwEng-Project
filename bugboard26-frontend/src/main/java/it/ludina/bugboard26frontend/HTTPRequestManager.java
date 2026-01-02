@@ -23,6 +23,7 @@ public class HTTPRequestManager {
     private static final String BASE_URI = "http://localhost:8080/";
     static Gson gson = new Gson();
 
+    private HTTPRequestManager(){}
 
     public static void login(String email, String password) throws LoginException{
         HttpRequest request = HttpRequest.newBuilder()

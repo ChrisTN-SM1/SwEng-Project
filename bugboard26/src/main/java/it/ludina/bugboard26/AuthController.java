@@ -76,6 +76,7 @@ public class AuthController {
                             "}";
             return Response.status(Response.Status.OK).entity(entity).build();
         } catch (SQLException e) {
+          e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

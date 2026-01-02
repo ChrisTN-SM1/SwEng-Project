@@ -2,7 +2,6 @@ package it.ludina.bugboard26frontend.IssueDetails;
 
 import it.ludina.bugboard26frontend.HTTPRequestManager;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -12,9 +11,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.Objects;
 
 @Getter
 @Setter
