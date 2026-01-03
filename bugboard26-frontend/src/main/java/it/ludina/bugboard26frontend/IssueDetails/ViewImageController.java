@@ -1,6 +1,7 @@
 package it.ludina.bugboard26frontend.IssueDetails;
 
 import it.ludina.bugboard26frontend.HTTPRequestManager;
+import it.ludina.bugboard26frontend.WindowManager;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,10 +32,9 @@ public class ViewImageController {
             if (decodedImage.length > 0) {
                 file = File.createTempFile("trmp-", "-file");
                 FileUtils.writeByteArrayToFile(file, decodedImage);
-
             }
-
         } catch (IOException e) {
+            WindowManager.openWindow("errors/generic-error.fxml");
             throw new RuntimeException(e);
         }
 

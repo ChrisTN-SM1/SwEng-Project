@@ -20,7 +20,7 @@ import javax.security.auth.login.LoginException;
 
 public class HTTPRequestManager {
     private static final HttpClient client = HttpClient.newHttpClient();
-    private static final String BASE_URI = "http://localhost:8080/";
+    private static final String BASE_URI = "http://192.168.1.58:8080/";
     static Gson gson = new Gson();
 
     private HTTPRequestManager(){}
@@ -85,7 +85,7 @@ public class HTTPRequestManager {
 
         if(image == null) encodedFile = "";
         else {
-            byte[] imageBytes = null;
+            byte[] imageBytes;
             try {
                 imageBytes = FileUtils.readFileToByteArray(image);
             } catch (IOException e) {
@@ -185,6 +185,7 @@ public class HTTPRequestManager {
         return getStringTypeList(request);
     }
 
+
     private static List<String> getStringTypeList(HttpRequest request) {
         List<String> list;
         try {
@@ -214,6 +215,7 @@ public class HTTPRequestManager {
             throw new RuntimeException(e);
         }
     }
+
 
     public static String getIssueImage(int issueId){
         HttpRequest request = HttpRequest.newBuilder()

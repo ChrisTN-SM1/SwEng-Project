@@ -19,6 +19,7 @@ public class ViewDetailCell extends TableCell<Issue, Boolean> {
     final StackPane stackPane = new StackPane();
     final DoubleProperty buttonY = new SimpleDoubleProperty();
 
+    
     public ViewDetailCell(TableView<Issue> table) {
         stackPane.setPadding(new Insets(3));
         stackPane.getChildren().add(viewButton);
@@ -29,6 +30,7 @@ public class ViewDetailCell extends TableCell<Issue, Boolean> {
             showDetailIssue(issue);
         });
     }
+
 
     @Override protected void updateItem(Boolean item, boolean empty) {
         super.updateItem(item, empty);

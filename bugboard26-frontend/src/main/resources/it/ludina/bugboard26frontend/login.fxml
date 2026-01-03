@@ -18,11 +18,9 @@
    <Separator prefWidth="200.0" />
    <Label text="Email:" />
    <TextField fx:id="emailField" prefHeight="25.0" prefWidth="255.0" />
-   <Label text="PLACEHOLDER" />
    <Separator prefHeight="59.0" prefWidth="260.0" />
    <Label text="Password:" />
    <PasswordField fx:id="passwordField" />
-   <Label text="PLACEHOLDER" />
    <Separator prefHeight="139.0" prefWidth="260.0" />
     <Button onAction="#loginButtonPressed" style="-fx-background-color: lightskyblue;" text="Login" />
 </VBox>

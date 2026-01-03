@@ -25,12 +25,13 @@ public class SetStateCompletedController {
 
 
     public void procediButtonPressed(ActionEvent event) {
-        HTTPRequestManager.setStateCompleted(idIssue);
-        WindowManager.closeWindow(event);
-        HomepageController homepageController = HomepageController.getHomepageController();
         try {
+            HTTPRequestManager.setStateCompleted(idIssue);
+            WindowManager.closeWindow(event);
+            HomepageController homepageController = HomepageController.getHomepageController();
             homepageController.reloadPage();
         } catch (IOException e) {
+            WindowManager.openWindow("errors/generic-error.fxml");
             throw new RuntimeException(e);
         }
     }

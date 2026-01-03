@@ -36,12 +36,13 @@ public class AssignIssueController{
 
 
     public void confermaButtonPressed(ActionEvent event) {
-        HTTPRequestManager.assignIssue(idIssue, selectedEmails);
-        WindowManager.closeWindow(event);
-        HomepageController homepageController = HomepageController.getHomepageController();
         try {
+            HTTPRequestManager.assignIssue(idIssue, selectedEmails);
+            WindowManager.closeWindow(event);
+            HomepageController homepageController = HomepageController.getHomepageController();
             homepageController.reloadPage();
         } catch (IOException e) {
+            WindowManager.openWindow("errors/generic-error.fxml");
             throw new RuntimeException(e);
         }
     }
