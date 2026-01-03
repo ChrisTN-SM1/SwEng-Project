@@ -1,30 +1,30 @@
 package it.ludina.bugboard26.data.issue;
 
-
-import it.ludina.bugboard26.data.issue.enums.PrioritaEnum;
-import it.ludina.bugboard26.data.issue.enums.StatoEnum;
+import it.ludina.bugboard26.data.issue.enums.PriorityEnum;
+import it.ludina.bugboard26.data.issue.enums.StatusEnum;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@ToString
+@Getter
+@Setter
 public class Issue {
-    @Getter @Setter protected int idIssue;
-    @Getter @Setter protected String title;
-    @Getter @Setter protected String description;
-    @Getter protected PrioritaEnum priority;
-    @Getter @Setter protected StatoEnum state;
+    protected int idIssue;
+    protected String title;
+    protected String description;
+    protected PriorityEnum priority;
+    protected StatusEnum state;
+    protected String image;
 
-    @Getter @Setter protected String image;
+    public Issue() {
+    }
 
-
-    public Issue(){}
-
-    public Issue(int idIssue){
+    public Issue(int idIssue) {
         this.idIssue = idIssue;
     }
-    //Costruttore per il caricamento delle issue dal database
-    public Issue(int idIssue, String titolo, String descrizione, PrioritaEnum priorita, StatoEnum stato, String immagine){
+
+    // Costruttore per il caricamento delle issue dal database
+    public Issue(int idIssue, String titolo, String descrizione, PriorityEnum priorita, StatusEnum stato,
+            String immagine) {
         this.idIssue = idIssue;
         this.title = titolo;
         this.description = descrizione;
@@ -33,20 +33,22 @@ public class Issue {
         this.image = immagine;
     }
 
-    //Costruttore per la creazione di nuove issue
-    public Issue(String titolo, String descrizione, PrioritaEnum priorita, String urlImmagine){
+    // Costruttore per la creazione di nuove issue
+    public Issue(String titolo, String descrizione, PriorityEnum priorita, String urlImmagine) {
         this.title = titolo;
         this.description = descrizione;
         this.priority = priorita;
         this.image = urlImmagine;
     }
 
-    public void setPriority(PrioritaEnum priorita){
-        if(priorita == null) this.priority = PrioritaEnum.NON_SPECIFICATA;
-        else this.priority = priorita;
+    public void setPriority(PriorityEnum priorita) {
+        if (priorita == null)
+            this.priority = PriorityEnum.NON_SPECIFICATA;
+        else
+            this.priority = priorita;
     }
 
-    public String getIssueType(){
+    public String getIssueType() {
         return "";
     }
-}  
+}

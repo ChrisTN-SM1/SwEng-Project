@@ -1,4 +1,4 @@
-package it.ludina.bugboard26;
+package it.ludina.bugboard26.controllers;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -19,7 +19,7 @@ import jakarta.ws.rs.core.Response;
 
 @Path("assignment")
 public class AssignmentController {
-    AssignmentDAO dao = new PGAssignmentDAO();
+    private AssignmentDAO dao = new PGAssignmentDAO();
 
     @Path("assign")
     @RequireJWTAuthentication
@@ -38,7 +38,7 @@ public class AssignmentController {
     @Path("assignedto/{idIssue}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getAssignedTo(@PathParam("idIssue")int idIssue) {
+    public List<String> getAssignedTo(@PathParam("idIssue") int idIssue) {
 
         try {
             return dao.getAssignedTo(idIssue);
@@ -52,7 +52,7 @@ public class AssignmentController {
     @Path("notassignedto/{idIssue}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getNotAssignedTo(@PathParam("idIssue")int idIssue) {
+    public List<String> getNotAssignedTo(@PathParam("idIssue") int idIssue) {
 
         try {
             return dao.getNotAssignedTo(idIssue);
@@ -60,8 +60,6 @@ public class AssignmentController {
             return Collections.emptyList();
         }
 
-
     }
 
-    
 }

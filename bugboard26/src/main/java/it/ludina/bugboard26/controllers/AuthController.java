@@ -1,4 +1,4 @@
-package it.ludina.bugboard26;
+package it.ludina.bugboard26.controllers;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -12,9 +12,9 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import it.ludina.bugboard26.dao.AuthenticationDAO;
-import it.ludina.bugboard26.dao.postgresql.PGAuthenticationDAO;
-import it.ludina.bugboard26.data.utente.Utente;
+import it.ludina.bugboard26.dao.AuthDAO;
+import it.ludina.bugboard26.dao.postgresql.PGAuthDAO;
+import it.ludina.bugboard26.data.user.Utente;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -25,7 +25,7 @@ import jakarta.ws.rs.core.Response;
 @Path("authentication")
 public class AuthController {
 
-    AuthenticationDAO dao = new PGAuthenticationDAO();
+    private AuthDAO dao = new PGAuthDAO();
 
     private static Dotenv env = Dotenv.load();
 
@@ -43,15 +43,15 @@ public class AuthController {
         }
     }
 
-    private String createJWT(String username, long ttlMillis) {
+    private String createJWT(String username, long tokenDuration) {
 
         return JWT.create().withIssuer(ISSUER).withClaim("username", username).withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + ttlMillis)).withJWTId(UUID.randomUUID().toString())
-                .sign(algorithm);
+                .withExpiresAt(new Date(System.currentTimeMillis() + tokenDuration))
+                .withJWTId(UUID.randomUUID().toString()).sign(algorithm);
 
     }
 
-    public static boolean validateToken(String token){
+    public static boolean validateToken(String token) {
         try {
             verifier.verify(token);
             return true;
@@ -63,20 +63,17 @@ public class AuthController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(Utente user){
+    public Response login(Utente user) {
         try {
             String result = dao.login(user);
-            if(result.equals("invalid"))
+            if (result.equals("invalid"))
                 return Response.status(Response.Status.NOT_FOUND).build();
 
             String token = createJWT(user.getEmail(), TimeUnit.HOURS.toMillis(8));
-            String entity = "{" +
-                                "\"userType\":\"" + result + "\"," +
-                                "\"token\":\"" + token + "\""+
-                            "}";
+            String entity = "{" + "\"userType\":\"" + result + "\"," + "\"token\":\"" + token + "\"" + "}";
             return Response.status(Response.Status.OK).entity(entity).build();
         } catch (SQLException e) {
-          e.printStackTrace();
+            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

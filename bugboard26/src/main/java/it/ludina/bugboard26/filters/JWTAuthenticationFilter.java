@@ -11,7 +11,7 @@ import jakarta.ws.rs.ext.Provider;
 
 import java.io.IOException;
 
-import it.ludina.bugboard26.AuthController;
+import it.ludina.bugboard26.controllers.AuthController;
 
 @Provider
 @RequireJWTAuthentication
@@ -27,7 +27,7 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
 
         String token = authorizationHeader.substring("Bearer".length()).trim();
 
-        if(!AuthController.validateToken(token) ){
+        if (!AuthController.validateToken(token)) {
             containerRequestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
         }
     }

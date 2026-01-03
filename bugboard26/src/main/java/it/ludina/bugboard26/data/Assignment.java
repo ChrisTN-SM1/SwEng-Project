@@ -11,9 +11,10 @@ public class Assignment {
     private int idIssue;
     private String[] emails;
 
-    public Assignment(){}
+    public Assignment() {
+    }
 
-    public Assignment(int idIssue, String[] emails){
+    public Assignment(int idIssue, String[] emails) {
         this.idIssue = idIssue;
         this.emails = emails;
     }

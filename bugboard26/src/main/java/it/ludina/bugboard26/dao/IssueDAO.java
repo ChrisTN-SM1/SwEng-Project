@@ -6,16 +6,15 @@ import java.util.List;
 import it.ludina.bugboard26.data.issue.Issue;
 
 public interface IssueDAO {
-    List<Issue> getIssueList() throws SQLException;
+    public List<Issue> getIssueList() throws SQLException;
 
-    List<Issue> getBugArchive() throws SQLException;
+    public List<Issue> getBugArchive() throws SQLException;
 
-    void add(Issue issue) throws SQLException;
+    public void add(Issue issue) throws SQLException;
 
-    void setArchived(Issue issue) throws SQLException;
+    public void setArchived(Issue issue) throws SQLException;
 
-    void setCompleted(Issue issue) throws SQLException;
+    public void setCompleted(Issue issue) throws SQLException;
 
     public String getImage(int idIssue) throws SQLException;
-
 }

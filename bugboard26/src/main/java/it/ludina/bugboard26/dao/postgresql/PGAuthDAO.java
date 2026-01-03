@@ -6,14 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import it.ludina.bugboard26.connections.PostgresConnection;
-import it.ludina.bugboard26.dao.AuthenticationDAO;
-import it.ludina.bugboard26.data.utente.Utente;
+import it.ludina.bugboard26.dao.AuthDAO;
+import it.ludina.bugboard26.data.user.Utente;
 
-public class PGAuthenticationDAO implements AuthenticationDAO {
-
+public class PGAuthDAO implements AuthDAO {
 	private Connection conn = null;
 	private PreparedStatement ps;
-	ResultSet rs;
+	private ResultSet rs;
 
 	@Override
 	public String login(Utente user) throws SQLException {

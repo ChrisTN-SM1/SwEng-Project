@@ -12,10 +12,9 @@ import it.ludina.bugboard26.dao.AssignmentDAO;
 import it.ludina.bugboard26.data.Assignment;
 
 public class PGAssignmentDAO implements AssignmentDAO {
-
     private Connection conn = null;
     private PreparedStatement ps;
-    ResultSet rs;
+    private ResultSet rs;
 
     @Override
     public void assign(Assignment assignment) throws SQLException {
@@ -27,9 +26,9 @@ public class PGAssignmentDAO implements AssignmentDAO {
         for (String user : assignment.getEmails()) {
             ps.setString(2, user);
             ps.addBatch();
-            
+
         }
-        
+
         ps.executeBatch();
 
         conn.close();
@@ -38,7 +37,7 @@ public class PGAssignmentDAO implements AssignmentDAO {
     @Override
     public List<String> getAssignedTo(int idIssue) throws SQLException {
         List<String> results = new ArrayList<>();
-        
+
         conn = PostgresConnection.getInstance().getConnection();
         ps = conn.prepareStatement("SELECT emailResponsabile from visualizza_responsabili_issue(?)");
         ps.setInt(1, idIssue);
@@ -56,7 +55,7 @@ public class PGAssignmentDAO implements AssignmentDAO {
     @Override
     public List<String> getNotAssignedTo(int idIssue) throws SQLException {
         List<String> results = new ArrayList<>();
-        
+
         conn = PostgresConnection.getInstance().getConnection();
         ps = conn.prepareStatement("SELECT emailResponsabile from visualizza_non_responsabili_issue(?)");
         ps.setInt(1, idIssue);

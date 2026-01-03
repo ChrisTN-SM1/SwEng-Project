@@ -9,10 +9,10 @@ import java.util.List;
 
 import it.ludina.bugboard26.connections.PostgresConnection;
 import it.ludina.bugboard26.dao.IssueDAO;
-import it.ludina.bugboard26.data.IssueFactory;
 import it.ludina.bugboard26.data.issue.Issue;
-import it.ludina.bugboard26.data.issue.enums.PrioritaEnum;
-import it.ludina.bugboard26.data.issue.enums.StatoEnum;
+import it.ludina.bugboard26.data.issue.IssueFactory;
+import it.ludina.bugboard26.data.issue.enums.PriorityEnum;
+import it.ludina.bugboard26.data.issue.enums.StatusEnum;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -20,10 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class PGIssueDAO implements IssueDAO {
-
     private Connection conn = null;
     private PreparedStatement ps;
-    ResultSet rs;
+    private ResultSet rs;
 
     @Override
     public List<Issue> getIssueList() throws SQLException {
@@ -31,7 +30,8 @@ public class PGIssueDAO implements IssueDAO {
 
         List<Issue> result = new ArrayList<>();
 
-        ps = conn.prepareStatement("SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_lista_issue()");
+        ps = conn.prepareStatement(
+                "SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_lista_issue()");
 
         rs = ps.executeQuery();
 
@@ -41,9 +41,9 @@ public class PGIssueDAO implements IssueDAO {
             String title = rs.getString(2);
             String description = rs.getString(3);
             String issueType = rs.getString(4);
-            PrioritaEnum priority = PrioritaEnum.valueOf(rs.getString(5).toUpperCase());
-            StatoEnum state = StatoEnum.valueOf(rs.getString(6).toUpperCase());
-            
+            PriorityEnum priority = PriorityEnum.valueOf(rs.getString(5).toUpperCase());
+            StatusEnum state = StatusEnum.valueOf(rs.getString(6).toUpperCase());
+
             Issue issue = IssueFactory.create(id, title, description, issueType, priority, state);
 
             result.add(issue);
@@ -70,8 +70,8 @@ public class PGIssueDAO implements IssueDAO {
             String title = rs.getString(2);
             String description = rs.getString(3);
             String issueType = rs.getString(4);
-            PrioritaEnum priority = PrioritaEnum.valueOf(rs.getString(5).toUpperCase());
-            StatoEnum state = StatoEnum.valueOf(rs.getString(6).toUpperCase());
+            PriorityEnum priority = PriorityEnum.valueOf(rs.getString(5).toUpperCase());
+            StatusEnum state = StatusEnum.valueOf(rs.getString(6).toUpperCase());
 
             Issue issue = IssueFactory.create(id, title, description, issueType, priority, state);
 
@@ -140,7 +140,7 @@ public class PGIssueDAO implements IssueDAO {
         InputStream stream = rs.getBinaryStream(1);
 
         try {
-            for (int length; (length = stream.read(buffer)) != -1; ) {
+            for (int length; (length = stream.read(buffer)) != -1;) {
                 result.write(buffer, 0, length);
             }
         } catch (IOException e) {

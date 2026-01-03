@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.logging.Logger;
 
-
 /**
  * Main class.
  *
@@ -17,10 +16,12 @@ public class Main {
     // Base URI the Grizzly HTTP server will listen on
     public static final String BASE_URI = "http://0.0.0.0:8080/";
 
-    private static final Logger LOGGER =  Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     /**
-     * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
+     * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
+     * application.
+     * 
      * @return Grizzly HTTP server.
      */
     public static HttpServer startServer() {
@@ -35,6 +36,7 @@ public class Main {
 
     /**
      * Main method.
+     * 
      * @param args
      * @throws IOException
      */
@@ -45,4 +47,3 @@ public class Main {
         server.shutdownNow();
     }
 }
-

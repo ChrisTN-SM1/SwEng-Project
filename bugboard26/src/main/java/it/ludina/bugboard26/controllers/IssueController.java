@@ -1,4 +1,4 @@
-package it.ludina.bugboard26;
+package it.ludina.bugboard26.controllers;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -7,10 +7,10 @@ import java.util.List;
 import it.ludina.bugboard26.dao.IssueDAO;
 import it.ludina.bugboard26.dao.postgresql.PGIssueDAO;
 import it.ludina.bugboard26.data.issue.Issue;
-import it.ludina.bugboard26.data.issue.IssueBug;
-import it.ludina.bugboard26.data.issue.IssueDocumentation;
-import it.ludina.bugboard26.data.issue.IssueFeature;
-import it.ludina.bugboard26.data.issue.IssueQuestion;
+import it.ludina.bugboard26.data.issue.Bug;
+import it.ludina.bugboard26.data.issue.Documentation;
+import it.ludina.bugboard26.data.issue.Feature;
+import it.ludina.bugboard26.data.issue.Question;
 import it.ludina.bugboard26.filters.RequireJWTAuthentication;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -19,7 +19,7 @@ import jakarta.ws.rs.core.Response;
 @Path("issues")
 public class IssueController {
 
-    IssueDAO dao = new PGIssueDAO();
+    private IssueDAO dao = new PGIssueDAO();
 
     @RequireJWTAuthentication
     @Path("list")
@@ -53,7 +53,7 @@ public class IssueController {
     @Path("bug")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addBug(IssueBug bug) {
+    public Response addBug(Bug bug) {
         try {
             dao.add(bug);
             return Response.status(Response.Status.CREATED).build();
@@ -67,7 +67,7 @@ public class IssueController {
     @Path("documentation")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addDocumentation(IssueDocumentation documentation) {
+    public Response addDocumentation(Documentation documentation) {
         try {
             dao.add(documentation);
             return Response.status(Response.Status.CREATED).build();
@@ -80,7 +80,7 @@ public class IssueController {
     @Path("feature")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addFeature(IssueFeature feature) {
+    public Response addFeature(Feature feature) {
         try {
             dao.add(feature);
             return Response.status(Response.Status.CREATED).build();
@@ -93,7 +93,7 @@ public class IssueController {
     @Path("question")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addQuestion(IssueQuestion question) {
+    public Response addQuestion(Question question) {
         try {
             dao.add(question);
             return Response.status(Response.Status.CREATED).build();
