@@ -1,4 +1,4 @@
-package it.ludina.bugboard26frontend.IssueDetails;
+package it.ludina.bugboard26frontend.details;
 
 import it.ludina.bugboard26frontend.HTTPRequestManager;
 import it.ludina.bugboard26frontend.WindowManager;

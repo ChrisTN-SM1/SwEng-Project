@@ -18,8 +18,8 @@ module it.ludina.bugboard26frontend {
 
     opens it.ludina.bugboard26frontend to javafx.fxml, com.google.gson, org.controlsfx.controls;
     exports it.ludina.bugboard26frontend;
-    exports it.ludina.bugboard26frontend.IssueDetails;
-    opens it.ludina.bugboard26frontend.IssueDetails to javafx.fxml;
-    exports it.ludina.bugboard26frontend.ErrorsController;
-    opens it.ludina.bugboard26frontend.ErrorsController to javafx.fxml;
+    exports it.ludina.bugboard26frontend.details;
+    opens it.ludina.bugboard26frontend.details to javafx.fxml;
+    exports it.ludina.bugboard26frontend.errors;
+    opens it.ludina.bugboard26frontend.errors to javafx.fxml;
 }

@@ -1,8 +1,8 @@
 package it.ludina.bugboard26frontend.components;
 
 import it.ludina.bugboard26frontend.Issue;
-import it.ludina.bugboard26frontend.IssueDetails.DetailIssueController;
 import it.ludina.bugboard26frontend.WindowManager;
+import it.ludina.bugboard26frontend.details.DetailIssueController;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXMLLoader;

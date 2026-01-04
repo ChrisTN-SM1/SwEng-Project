@@ -1,4 +1,4 @@
-package it.ludina.bugboard26frontend.IssueDetails;
+package it.ludina.bugboard26frontend.details;
 
 import it.ludina.bugboard26frontend.HTTPRequestManager;
 import it.ludina.bugboard26frontend.HomepageController;
@@ -11,9 +11,9 @@ import lombok.Setter;
 
 import java.io.IOException;
 
-@Setter
 @Getter
-public class ArchiveBugController {
+@Setter
+public class SetStateCompletedController {
     @FXML
     Button procediButton = getProcediButton();
     private int idIssue;
@@ -26,7 +26,7 @@ public class ArchiveBugController {
 
     public void procediButtonPressed(ActionEvent event) {
         try {
-            HTTPRequestManager.setStateArchived(idIssue);
+            HTTPRequestManager.setStateCompleted(idIssue);
             WindowManager.closeWindow(event);
             HomepageController homepageController = HomepageController.getHomepageController();
             homepageController.reloadPage();
