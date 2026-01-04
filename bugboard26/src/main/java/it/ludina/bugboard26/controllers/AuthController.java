@@ -14,7 +14,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import io.github.cdimascio.dotenv.Dotenv;
 import it.ludina.bugboard26.dao.AuthDAO;
 import it.ludina.bugboard26.dao.postgresql.PGAuthDAO;
-import it.ludina.bugboard26.data.user.Utente;
+import it.ludina.bugboard26.data.user.GenericUser;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -30,12 +30,12 @@ public class AuthController {
     private static Dotenv env = Dotenv.load();
 
     private static final String ISSUER = "bugboard26-rest-api";
-    private static final Algorithm algorithm = Algorithm.HMAC256(env.get("ENCRIPTION_KEY"));
-    private static final JWTVerifier verifier = JWT.require(algorithm).withIssuer(ISSUER).build();
+    private static final Algorithm ALGORITHM = Algorithm.HMAC256(env.get("ENCRIPTION_KEY"));
+    private static final JWTVerifier VERIFIER = JWT.require(ALGORITHM).withIssuer(ISSUER).build();
 
     public static String getUsernameClaim(String token) {
         try {
-            DecodedJWT decodedJWT = verifier.verify(token);
+            DecodedJWT decodedJWT = VERIFIER.verify(token);
             return decodedJWT.getClaim("username").asString();
         } catch (JWTVerificationException e) {
             e.printStackTrace();
@@ -47,13 +47,13 @@ public class AuthController {
 
         return JWT.create().withIssuer(ISSUER).withClaim("username", username).withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + tokenDuration))
-                .withJWTId(UUID.randomUUID().toString()).sign(algorithm);
+                .withJWTId(UUID.randomUUID().toString()).sign(ALGORITHM);
 
     }
 
     public static boolean validateToken(String token) {
         try {
-            verifier.verify(token);
+            VERIFIER.verify(token);
             return true;
         } catch (JWTVerificationException e) {
             return false;
@@ -63,7 +63,7 @@ public class AuthController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(Utente user) {
+    public Response login(GenericUser user) {
         try {
             String result = dao.login(user);
             if (result.equals("invalid"))

@@ -1,6 +1,6 @@
 package it.ludina.bugboard26.data.user;
 
-public class Admin extends Utente {
+public class Admin extends GenericUser {
     public Admin() {
     }
 

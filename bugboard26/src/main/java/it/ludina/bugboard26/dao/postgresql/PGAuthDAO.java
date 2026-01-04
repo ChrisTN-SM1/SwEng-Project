@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import it.ludina.bugboard26.connections.PostgresConnection;
 import it.ludina.bugboard26.dao.AuthDAO;
-import it.ludina.bugboard26.data.user.Utente;
+import it.ludina.bugboard26.data.user.GenericUser;
 
 public class PGAuthDAO implements AuthDAO {
 	private Connection conn = null;
@@ -15,7 +15,7 @@ public class PGAuthDAO implements AuthDAO {
 	private ResultSet rs;
 
 	@Override
-	public String login(Utente user) throws SQLException {
+	public String login(GenericUser user) throws SQLException {
 		conn = PostgresConnection.getInstance().getConnection();
 		ps = conn.prepareStatement("select login_utente(?,?)");
 

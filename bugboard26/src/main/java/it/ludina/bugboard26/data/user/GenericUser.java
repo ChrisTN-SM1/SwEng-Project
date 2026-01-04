@@ -5,15 +5,15 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Utente {
+public class GenericUser {
 
     private String email;
     private String password;
 
-    public Utente() {
+    public GenericUser() {
     }
 
-    public Utente(String email, String password) {
+    public GenericUser(String email, String password) {
         this.email = email;
         this.password = password;
     }
