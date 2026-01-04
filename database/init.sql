@@ -170,4 +170,4 @@ FOR EACH ROW
 EXECUTE FUNCTION controlla_stato_issue_function();
 
 --Popolamento
-CALL crea_utente('a', '0000', 'admin');
+CALL crea_utente('proprietario@unina.it', '0000', 'admin');
