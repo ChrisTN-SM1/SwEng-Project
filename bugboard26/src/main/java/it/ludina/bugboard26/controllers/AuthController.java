@@ -38,7 +38,6 @@ public class AuthController {
             DecodedJWT decodedJWT = VERIFIER.verify(token);
             return decodedJWT.getClaim("username").asString();
         } catch (JWTVerificationException e) {
-            e.printStackTrace();
             return null;
         }
     }
@@ -73,7 +72,6 @@ public class AuthController {
             String entity = "{" + "\"userType\":\"" + result + "\"," + "\"token\":\"" + token + "\"" + "}";
             return Response.status(Response.Status.OK).entity(entity).build();
         } catch (SQLException e) {
-            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 

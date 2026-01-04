@@ -58,7 +58,6 @@ public class IssueController {
             dao.add(bug);
             return Response.status(Response.Status.CREATED).build();
         } catch (SQLException e) {
-            e.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
@@ -135,7 +134,6 @@ public class IssueController {
         try {
             return dao.getImage(idIssue);
         } catch (SQLException e) {
-            e.printStackTrace();
             return "";
         }
     }

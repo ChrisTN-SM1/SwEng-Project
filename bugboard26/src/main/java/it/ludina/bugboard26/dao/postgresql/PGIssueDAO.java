@@ -28,26 +28,12 @@ public class PGIssueDAO implements IssueDAO {
     public List<Issue> getIssueList() throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
-        List<Issue> result = new ArrayList<>();
-
         ps = conn.prepareStatement(
                 "SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_lista_issue()");
 
         rs = ps.executeQuery();
 
-        while (rs.next()) {
-
-            int id = rs.getInt(1);
-            String title = rs.getString(2);
-            String description = rs.getString(3);
-            String issueType = rs.getString(4);
-            PriorityEnum priority = PriorityEnum.valueOf(rs.getString(5).toUpperCase());
-            StatusEnum state = StatusEnum.valueOf(rs.getString(6).toUpperCase());
-
-            Issue issue = IssueFactory.create(id, title, description, issueType, priority, state);
-
-            result.add(issue);
-        }
+        List<Issue> result = getIssueTypeList(rs);
         rs.close();
         conn.close();
         return result;
@@ -57,12 +43,21 @@ public class PGIssueDAO implements IssueDAO {
     public List<Issue> getBugArchive() throws SQLException {
         conn = PostgresConnection.getInstance().getConnection();
 
-        List<Issue> result = new ArrayList<>();
-
         ps = conn.prepareStatement(
                 "SELECT identificatoreIssue, titoloIssue, descrizioneIssue, tipologiaIssue, prioritaIssue, statoIssue FROM visualizza_archivio_bug()");
 
         rs = ps.executeQuery();
+
+        List<Issue> result = getIssueTypeList(rs);
+
+        rs.close();
+        conn.close();
+        return result;
+    }
+
+    private List<Issue> getIssueTypeList(ResultSet rs) throws SQLException {
+
+        List<Issue> list = new ArrayList<>();
 
         while (rs.next()) {
 
@@ -75,11 +70,10 @@ public class PGIssueDAO implements IssueDAO {
 
             Issue issue = IssueFactory.create(id, title, description, issueType, priority, state);
 
-            result.add(issue);
+            list.add(issue);
         }
-        rs.close();
-        conn.close();
-        return result;
+
+        return list;
     }
 
     @Override

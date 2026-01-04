@@ -21,7 +21,6 @@ import jakarta.ws.rs.core.Response;
 public class AssignmentController {
     private AssignmentDAO dao = new PGAssignmentDAO();
 
-    @Path("assign")
     @RequireJWTAuthentication
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

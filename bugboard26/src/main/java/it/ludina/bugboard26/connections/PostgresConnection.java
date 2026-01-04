@@ -20,7 +20,7 @@ public class PostgresConnection {
     private String urlDatabase = "jdbc:postgresql://" + DB_IP + ":" + DB_PORT + "/" + DB_NAME;
 
     @Getter
-    private Connection connection = null;
+    private Connection connection;
 
     private PostgresConnection() throws SQLException {
         try {

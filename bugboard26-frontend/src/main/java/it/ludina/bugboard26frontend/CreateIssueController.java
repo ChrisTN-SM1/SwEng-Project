@@ -43,7 +43,11 @@ public class CreateIssueController implements Initializable {
 
     public void addImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.png"));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.png", "*.jpg"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
         file = fileChooser.showOpenDialog(null);
         if (file != null) {
             imagePathLabel.setText(file.getAbsolutePath());

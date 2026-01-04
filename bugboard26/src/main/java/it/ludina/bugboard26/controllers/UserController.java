@@ -14,7 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("user")
-public class UtenteController {
+public class UserController {
 
 	private UserDAO dao = new PGUserDAO();
 
@@ -27,7 +27,6 @@ public class UtenteController {
 			dao.add(user);
 			return Response.status(Response.Status.CREATED).build();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 	}

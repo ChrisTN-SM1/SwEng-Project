@@ -20,7 +20,7 @@ import javax.security.auth.login.LoginException;
 
 public class HTTPRequestManager {
     private static final HttpClient client = HttpClient.newHttpClient();
-    private static final String BASE_URI = "http://192.168.1.58:8080/";
+    private static final String BASE_URI = "http://localhost:8080/";
     static Gson gson = new Gson();
 
     private HTTPRequestManager(){}
@@ -201,7 +201,7 @@ public class HTTPRequestManager {
 
     public static void assignIssue(int idIssue, List<String> selectedEmails) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URI + "assignment/assign/"))
+                .uri(URI.create(BASE_URI + "assignment/"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", "Bearer " + Session.getInstance().getToken())
                 .POST(HttpRequest.BodyPublishers.ofString(
