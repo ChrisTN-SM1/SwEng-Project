@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="240.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.14-internal"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.ludina.bugboard26frontend.ErrorsController.GenericErrorController">
+            fx:controller="it.ludina.bugboard26frontend.errors.GenericErrorController">
    <Label layoutX="202.0" layoutY="14.0" text="OPS!">
       <font>
          <Font size="40.0"/>

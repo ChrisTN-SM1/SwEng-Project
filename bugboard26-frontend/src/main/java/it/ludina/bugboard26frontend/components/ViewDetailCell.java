@@ -15,13 +15,13 @@ import javafx.scene.layout.StackPane;
 
 
 public class ViewDetailCell extends TableCell<Issue, Boolean> {
-    final Button viewButton = new Button("View");
-    final StackPane stackPane = new StackPane();
-    final DoubleProperty buttonY = new SimpleDoubleProperty();
+    private final StackPane stackPane = new StackPane();
+    private final DoubleProperty buttonY = new SimpleDoubleProperty();
 
     
     public ViewDetailCell(TableView<Issue> table) {
         stackPane.setPadding(new Insets(3));
+        Button viewButton = new Button("View");
         stackPane.getChildren().add(viewButton);
         viewButton.setStyle("-fx-background-color: lightskyblue");
         viewButton.setOnMousePressed(mouseEvent -> buttonY.set(mouseEvent.getScreenY()));

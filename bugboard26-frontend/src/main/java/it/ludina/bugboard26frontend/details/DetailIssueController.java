@@ -67,7 +67,7 @@ public class DetailIssueController {
         FXMLLoader fxmlloader = WindowManager.openWindow("issue-details/archive-bug.fxml");
         ArchiveBugController controller = fxmlloader.getController();
         controller.setIdIssue(idIssue);
-        controller.procediButton.setOnAction(childEvent -> {
+        controller.getProcediButton().setOnAction(childEvent -> {
             WindowManager.closeWindow(event);
             controller.procediButtonPressed(childEvent);
         });
@@ -79,7 +79,7 @@ public class DetailIssueController {
         AssignIssueController controller = fxmlloader.getController();
         controller.setIdIssue(idIssue);
         controller.getNotAssignedTo();
-        controller.confermaButton.setOnAction(childEvent -> {
+        controller.getConfermaButton().setOnAction(childEvent -> {
            WindowManager.closeWindow(event);
            controller.confermaButtonPressed(childEvent);
         });
@@ -90,7 +90,7 @@ public class DetailIssueController {
         FXMLLoader fxmlloader = WindowManager.openWindow("issue-details/set-state-completed.fxml");
         SetStateCompletedController controller = fxmlloader.getController();
         controller.setIdIssue(idIssue);
-        controller.procediButton.setOnAction(childEvent -> {
+        controller.getProcediButton().setOnAction(childEvent -> {
             WindowManager.closeWindow(event);
             controller.procediButtonPressed(childEvent);
         });

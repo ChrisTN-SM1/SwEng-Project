@@ -15,7 +15,7 @@ import java.io.IOException;
 @Getter
 public class ArchiveBugController {
     @FXML
-    Button procediButton = getProcediButton();
+    private Button procediButton = getProcediButton();
     private int idIssue;
 
 

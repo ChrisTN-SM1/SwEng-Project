@@ -23,7 +23,7 @@ import java.util.List;
 @Setter
 public class AssignIssueController{
     @FXML
-    Button confermaButton;
+    private Button confermaButton;
     @FXML
     private ListView<String> emailListView;
 

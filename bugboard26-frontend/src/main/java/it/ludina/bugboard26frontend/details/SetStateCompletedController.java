@@ -15,7 +15,7 @@ import java.io.IOException;
 @Setter
 public class SetStateCompletedController {
     @FXML
-    Button procediButton = getProcediButton();
+    private Button procediButton = getProcediButton();
     private int idIssue;
 
 

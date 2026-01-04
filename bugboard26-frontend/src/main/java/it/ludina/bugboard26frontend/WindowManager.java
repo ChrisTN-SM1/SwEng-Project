@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class WindowManager {
 
-
     public static FXMLLoader openWindow(String nomeLayout){
         FXMLLoader fxmlLoader = new FXMLLoader(WindowManager.class.getResource(nomeLayout));
         Scene scene;

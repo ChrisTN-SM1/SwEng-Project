@@ -15,11 +15,11 @@ import java.util.ResourceBundle;
 public class HomepageController implements Initializable {
     private static HomepageController homepageController;
     @FXML
-    Tab issueListTab;
+    private Tab issueListTab;
     @FXML
-    Tab archiveTab;
+    private Tab archiveTab;
     @FXML
-    Button createUserButton;
+    private Button createUserButton;
 
 
     public static HomepageController getHomepageController(){
