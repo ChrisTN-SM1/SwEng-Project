@@ -83,7 +83,8 @@ public class HTTPRequestManager {
 
         String encodedFile;
 
-        if(image == null) encodedFile = "";
+        if(image == null)
+            encodedFile = "";
         else {
             byte[] imageBytes;
             try {
