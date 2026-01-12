@@ -23,6 +23,7 @@ public class IssueFactory {
         case "question":
             i = new Question(id, title, description, priority, state, "");
             break;
+        case null:
         default:
             break;
         }

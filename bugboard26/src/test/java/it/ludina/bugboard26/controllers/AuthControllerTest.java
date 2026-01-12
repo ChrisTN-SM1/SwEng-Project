@@ -25,10 +25,9 @@ class AuthControllerTest{
     AuthController controller;
 
 
-    GenericUser user = new GenericUser("test@testing.test", "thisisatest");
-
     @Test
     void testResultEqualsNotFound() throws Exception{
+        GenericUser user = new GenericUser("fakeuser@testing.test", "invaliduser");
         when(mockdao.login(user)).thenReturn("invalid");
         Response result = controller.login(user);
         assertEquals(404, result.getStatus());
@@ -37,6 +36,7 @@ class AuthControllerTest{
 
     @Test
     void testResultEqualsOk() throws Exception{
+        GenericUser user = new GenericUser("admin@testing.test", "thisisatest");
         when(mockdao.login(user)).thenReturn("admin");
         Response result = controller.login(user);
         assertEquals(result.getStatus(), 200);
@@ -44,8 +44,8 @@ class AuthControllerTest{
 
     @Test
     void testResultEqualsBadRequest() throws Exception {
-        when(mockdao.login(user)).thenThrow(SQLException.class);
-        Response result = controller.login(user);
+        when(mockdao.login(null)).thenThrow(SQLException.class);
+        Response result = controller.login(null);
         assertEquals(result.getStatus(), 400);
     }
 }
